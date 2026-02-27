@@ -62,7 +62,7 @@
   }
 </style>
 </head>
-<body>
+<body id="top">
   <div class="page-preloader" id="page-preloader" aria-hidden="true">
     <svg class="page-preloader__wifi" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M32 44a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/>
@@ -82,6 +82,10 @@
   @include('partials.footer')
   @include('partials.apply-modal')
 
+  <a href="#top" class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+  </a>
+
   <script>
     window.addEventListener('load', function() {
       var preloader = document.getElementById('page-preloader');
@@ -95,6 +99,8 @@
     window.addEventListener('scroll', function() {
       var h = document.getElementById('main-header');
       if (h) h.classList.toggle('scrolled', window.scrollY > 20);
+      var b2t = document.getElementById('back-to-top');
+      if (b2t) b2t.classList.toggle('visible', window.scrollY > 300);
     });
 
     (function() {

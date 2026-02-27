@@ -4,6 +4,7 @@
 @section('meta_description', 'Contact Livenet Solutions for home or business internet. Phone, email, contact form, and address. Apply for connection or get support.')
 
 @section('jsonld')
+@verbatim
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -14,6 +15,7 @@
   ]
 }
 </script>
+@endverbatim
 @endsection
 
 @section('content')

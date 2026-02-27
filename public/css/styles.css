@@ -2013,6 +2013,18 @@ a:hover {
     padding: 60px 20px 80px;
   }
 
+  .hero .cta-group {
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .hero .btn {
+    padding: 10px 16px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
   .section {
     padding: 50px 0;
   }
@@ -2078,4 +2090,52 @@ a:hover {
     padding: 6px 12px;
     font-size: 12px;
   }
+
+  .hero .cta-group {
+    gap: 0.5rem;
+  }
+
+  .hero .btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}
+
+/* Back to top */
+.back-to-top {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  color: var(--white);
+  border-radius: 50%;
+  box-shadow: 0 4px 16px rgba(0, 102, 204, 0.4);
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 102, 204, 0.5);
+}
+
+.back-to-top:focus {
+  outline: 2px solid var(--primary-light);
+  outline-offset: 2px;
 }
