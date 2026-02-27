@@ -148,6 +148,19 @@
   </div>
 </section>
 
+<section class="section section--vibrant coverage-section" id="coverage">
+  <div class="container">
+    <h2 class="section-title section-title--gradient">Our Coverage</h2>
+    <p class="section-subtitle">We serve Nairobi and environs. Hover over the map to see covered areas.</p>
+    <div class="coverage-map-wrap">
+      <div id="coverage-map" class="coverage-map" aria-label="Coverage map of Nairobi and environs"></div>
+      <div class="coverage-legend">
+        <span class="coverage-legend__item"><i class="coverage-legend__dot"></i> Covered</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section section--vibrant">
   <div class="container">
     <h2 class="section-title section-title--gradient">Why Choose Livenet Solutions</h2>
@@ -212,4 +225,80 @@
   </div>
 </section>
 </div>
+
+@push('styles')
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+@endpush
+
+@push('scripts')
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+(function() {
+  function initCoverageMap() {
+    var mapEl = document.getElementById('coverage-map');
+    if (!mapEl || typeof L === 'undefined') return;
+
+    var nairobi = [-1.286389, 36.817223];
+    var map = L.map('coverage-map', {
+      center: nairobi,
+      zoom: 11,
+      zoomControl: true,
+      scrollWheelZoom: true
+    });
+    L.control.zoom({ position: 'topright' }).addTo(map);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19
+    }).addTo(map);
+
+    var coverageColor = '#0066cc';
+    var coverageFill = 'rgba(0, 102, 204, 0.35)';
+    var hoverFill = 'rgba(0, 163, 224, 0.55)';
+
+    var zones = [
+      { name: 'Central Nairobi', coords: [[-1.278, 36.808], [-1.278, 36.825], [-1.295, 36.825], [-1.295, 36.808]] },
+      { name: 'Westlands', coords: [[-1.258, 36.798], [-1.258, 36.815], [-1.272, 36.815], [-1.272, 36.798]] },
+      { name: 'Kilimani', coords: [[-1.288, 36.782], [-1.288, 36.798], [-1.305, 36.798], [-1.305, 36.782]] },
+      { name: 'Lavington', coords: [[-1.278, 36.778], [-1.278, 36.792], [-1.292, 36.792], [-1.292, 36.778]] },
+      { name: 'Karen', coords: [[-1.308, 36.698], [-1.308, 36.718], [-1.328, 36.718], [-1.328, 36.698]] },
+      { name: 'Eastlands', coords: [[-1.282, 36.848], [-1.282, 36.868], [-1.298, 36.868], [-1.298, 36.848]] },
+      { name: 'Upper Hill', coords: [[-1.295, 36.812], [-1.295, 36.825], [-1.308, 36.825], [-1.308, 36.812]] },
+      { name: 'Runda / Gigiri', coords: [[-1.238, 36.808], [-1.238, 36.828], [-1.255, 36.828], [-1.255, 36.808]] }
+    ];
+
+    zones.forEach(function(zone) {
+      var layer = L.polygon(zone.coords, {
+        color: coverageColor,
+        weight: 2,
+        fillColor: coverageColor,
+        fillOpacity: 0.35,
+        className: 'coverage-zone'
+      }).addTo(map);
+
+      layer.bindTooltip(zone.name + ' &mdash; <strong>Covered</strong>', {
+        permanent: false,
+        direction: 'top',
+        className: 'coverage-tooltip',
+        offset: [0, -8]
+      });
+
+      layer.on('mouseover', function() {
+        this.setStyle({ fillOpacity: 0.55, weight: 3 });
+        this.bringToFront();
+      });
+      layer.on('mouseout', function() {
+        this.setStyle({ fillOpacity: 0.35, weight: 2 });
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCoverageMap);
+  } else {
+    initCoverageMap();
+  }
+})();
+</script>
+@endpush
 @endsection
