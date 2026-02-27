@@ -7,6 +7,7 @@ Route::view('/', 'home')->name('home');
 Route::view('/home-internet', 'home-internet')->name('home-internet');
 Route::view('/business-internet', 'business-internet')->name('business-internet');
 Route::view('/articles', 'articles')->name('articles');
+Route::view('/about', 'about')->name('about');
 Route::get('/contact', fn () => view('contact'))->name('contact');
 Route::post('/contact', function (Request $request) {
     $validated = $request->validate([

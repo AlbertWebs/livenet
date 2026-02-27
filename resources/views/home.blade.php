@@ -34,7 +34,11 @@
 
 @section('content')
 <div class="page-home">
-<section class="hero hero--vibrant">
+<section class="hero hero--vibrant hero--video">
+  <video class="hero__video" autoplay muted loop playsinline aria-hidden="true">
+    <source src="{{ asset('7140931-hd_1920_1080_24fps.mp4') }}" type="video/mp4">
+  </video>
+  <div class="hero__video-overlay" aria-hidden="true"></div>
   <div class="hero__glow hero__glow--1" aria-hidden="true"></div>
   <div class="hero__glow hero__glow--2" aria-hidden="true"></div>
   <div class="hero__glow hero__glow--3" aria-hidden="true"></div>

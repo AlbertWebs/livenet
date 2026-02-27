@@ -17,7 +17,7 @@
         <h4>Company</h4>
         <ul>
           <li><a href="{{ route('home') }}">Home</a></li>
-          <li><a href="{{ route('articles') }}">Articles</a></li>
+          <li><a href="{{ route('about') }}">About</a></li>
           <li><a href="{{ route('contact') }}">Contact Us</a></li>
         </ul>
       </div>
