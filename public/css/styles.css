@@ -2059,6 +2059,7 @@ a:hover {
 
   .main-header {
     --nav-height: 56px;
+    overflow: visible;
   }
 
   .nav-inner {
