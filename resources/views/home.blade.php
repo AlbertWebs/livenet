@@ -17,7 +17,7 @@
   "description": "Internet service provider supplying home and business internet with fast, reliable connectivity.",
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+254722539540",
+    "telephone": "+254712104104",
     "contactType": "customer service",
     "email": "info@livenetsolutions.com",
     "areaServed": "KE"

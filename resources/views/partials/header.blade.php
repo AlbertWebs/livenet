@@ -19,6 +19,15 @@
         <li><a href="{{ route('contact') }}">Contact Us</a></li>
       </ul>
     </nav>
-    <a href="#" class="btn btn-primary btn-apply js-open-apply-modal"><span class="btn-apply__text--long">Apply for Connection</span><span class="btn-apply__text--short">Apply</span></a>
+    <a href="#" class="btn btn-primary btn-apply js-open-apply-modal">
+      <span class="btn-apply__wifi" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M5 12.55a11 11 0 0 1 14.08 0"/>
+          <path d="M1.42 9a16 16 0 0 1 21.16 0"/>
+          <path d="M8.53 16.11a6 6 0 0 1 6.95 0"/>
+          <circle cx="12" cy="20" r="1"/>
+        </svg>
+      </span>
+      <span class="btn-apply__text--long">Apply for Connection</span><span class="btn-apply__text--short">Apply</span></a>
   </div>
 </header>

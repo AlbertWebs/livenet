@@ -70,19 +70,19 @@
         <tr>
           <td><strong>Business Starter</strong></td>
           <td>100 Mbps dedicated</td>
-          <td class="price">$129/mo</td>
+          <td class="price">KES 12,999/mo</td>
           <td><a href="{{ route('contact') }}#apply" class="btn btn-primary">Apply</a></td>
         </tr>
         <tr>
           <td><strong>Business Plus</strong></td>
           <td>500 Mbps dedicated</td>
-          <td class="price">$299/mo</td>
+          <td class="price">KES 29,999/mo</td>
           <td><a href="{{ route('contact') }}#apply" class="btn btn-primary">Apply</a></td>
         </tr>
         <tr>
           <td><strong>Business Pro</strong></td>
           <td>1 Gbps dedicated</td>
-          <td class="price">$499/mo</td>
+          <td class="price">KES 49,999/mo</td>
           <td><a href="{{ route('contact') }}#apply" class="btn btn-primary">Apply</a></td>
         </tr>
         <tr>

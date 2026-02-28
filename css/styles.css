@@ -287,6 +287,45 @@ a:hover {
 .btn-apply {
   box-shadow: 0 2px 12px rgba(0, 102, 204, 0.35);
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  gap: 0.5rem;
+}
+
+.btn-apply__wifi {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.btn-apply__wifi svg {
+  width: 1.1em;
+  height: 1.1em;
+  animation: btn-apply-wifi-pulse 2s ease-in-out infinite;
+}
+
+.btn-apply__wifi path {
+  stroke-dasharray: 1;
+  animation: btn-apply-wifi-signal 1.5s ease-in-out infinite;
+}
+
+.btn-apply__wifi path:nth-child(1) { animation-delay: 0s; }
+.btn-apply__wifi path:nth-child(2) { animation-delay: 0.1s; }
+.btn-apply__wifi path:nth-child(3) { animation-delay: 0.2s; }
+.btn-apply__wifi circle { animation: btn-apply-wifi-dot 1.5s ease-in-out infinite; }
+
+@keyframes btn-apply-wifi-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.08); }
+}
+
+@keyframes btn-apply-wifi-signal {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes btn-apply-wifi-dot {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 1; filter: drop-shadow(0 0 4px currentColor); }
 }
 
 .btn-apply:hover {
@@ -1333,28 +1372,31 @@ a:hover {
 
 .page-contact .contact-map-section {
   background: linear-gradient(180deg, #f0f6fc 0%, #e8f0fa 100%);
+  padding-bottom: 0;
 }
 
-.page-contact .contact-map-placeholder {
-  background: var(--white);
-  border: 2px dashed var(--border);
+.page-contact .contact-map-wrap {
   border-radius: 12px;
-  aspect-ratio: 16/6;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  padding: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 102, 204, 0.1);
+  background: var(--white);
+  aspect-ratio: 4/3;
+  max-height: 450px;
 }
 
-.page-contact .contact-map-placeholder code {
-  font-size: 0.8rem;
-  margin-top: 0.5rem;
-  background: var(--bg-alt);
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
+.page-contact .contact-map-wrap--full {
+  width: 100%;
+  border-radius: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+.page-contact .contact-map-iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  display: block;
 }
 
 @media (max-width: 900px) {
@@ -2071,6 +2113,7 @@ a:hover {
 
   .nav-inner .logo {
     grid-column: 1;
+    grid-row: 1;
     min-width: 0;
     font-size: 1.2rem;
   }
@@ -2091,6 +2134,7 @@ a:hover {
 
   .nav-inner .menu-toggle {
     grid-column: 3;
+    grid-row: 1;
   }
 
   .nav-inner .nav-center {
@@ -2100,7 +2144,9 @@ a:hover {
 
   .nav-inner .btn-apply {
     grid-column: 2;
+    grid-row: 1;
     justify-self: end;
+    align-self: center;
     padding: 8px 14px;
     font-size: 13px;
   }

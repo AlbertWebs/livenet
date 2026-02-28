@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <style>
+    .arc { fill: none; stroke: #0066cc; stroke-width: 2.2; stroke-linecap: round; }
+    .dot { fill: #00a3e0; }
+    .wifi { animation: wifi-pulse 1.5s ease-in-out infinite; transform-origin: 16px 24px; }
+    @keyframes wifi-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.05); }
+    }
+  </style>
+  <g class="wifi">
+    <path class="arc" d="M16 10c-5.5 0-10.5 2.2-14.1 5.8l1.4 1.4C8.7 14 13 12 16 12s7.3 2 12.7 5.2l1.4-1.4C26.5 12.2 21.5 10 16 10z"/>
+    <path class="arc" d="M16 16c-3.3 0-6.3 1.3-8.5 3.5l1.4 1.4A9 9 0 0 1 16 18a9 9 0 0 1 7.1 2.9l1.4-1.4A11 11 0 0 0 16 16z"/>
+    <path class="arc" d="M16 22a4 4 0 0 0-2.8 6.8l1.4 1.4a1.5 1.5 0 0 1 2.8 0l1.4-1.4A4 4 0 0 0 16 22z"/>
+    <circle class="dot" cx="16" cy="26" r="2"/>
+  </g>
+</svg>

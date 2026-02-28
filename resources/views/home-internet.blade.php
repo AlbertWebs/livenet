@@ -36,7 +36,7 @@
     <div class="plans-grid">
       <div class="plan-card">
         <h3>Starter</h3>
-        <p class="price-tag">$49/mo</p>
+        <p class="price-tag">KES 4,999<small>/mo</small></p>
         <ul>
           <li>Up to 100 Mbps download</li>
           <li>Unlimited data</li>
@@ -47,7 +47,7 @@
       </div>
       <div class="plan-card featured">
         <h3>Essential</h3>
-        <p class="price-tag">$69/mo</p>
+        <p class="price-tag">KES 6,999<small>/mo</small></p>
         <ul>
           <li>Up to 300 Mbps download</li>
           <li>Unlimited data</li>
@@ -58,7 +58,7 @@
       </div>
       <div class="plan-card">
         <h3>Premium</h3>
-        <p class="price-tag">$99/mo</p>
+        <p class="price-tag">KES 9,999<small>/mo</small></p>
         <ul>
           <li>Up to 1 Gbps download</li>
           <li>Unlimited data</li>

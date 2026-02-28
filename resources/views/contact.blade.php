@@ -50,12 +50,12 @@
           <p class="contact-side__intro">Use the form to send a message, or reach us directly. We typically respond within one business day.</p>
 
           <div class="contact-cards">
-            <a href="tel:+254722539540" class="contact-card">
+            <a href="tel:+254712104104" class="contact-card">
               <span class="contact-card__icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
               </span>
               <span class="contact-card__label">Phone</span>
-              <span class="contact-card__value">+254 722 539540</span>
+              <span class="contact-card__value">0712 104104</span>
             </a>
             <a href="mailto:info@livenetsolutions.com" class="contact-card">
               <span class="contact-card__icon" aria-hidden="true">
@@ -120,10 +120,9 @@
     <div class="container">
       <h2 class="section-title section-title--contact">Find Us</h2>
       <p class="section-subtitle">Visit our office or get in touch online. We're happy to help.</p>
-      <div class="contact-map-placeholder">
-        <p>Google Map embed — Add your iframe here for your office location.</p>
-        <code>&lt;iframe src="https://www.google.com/maps/embed?pb=..."&gt;&lt;/iframe&gt;</code>
-      </div>
+    </div>
+    <div class="contact-map-wrap contact-map-wrap--full">
+      <iframe class="contact-map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2042704.2711447817!2d34.806963249999995!3d-0.51558895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6dcc67caaba0276b%3A0x8e3ad9a571ec57a5!2sLIVENET%20SOLUTIONS!5e0!3m2!1sen!2ske!4v1772260543047!5m2!1sen!2ske" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Livenet Solutions location map"></iframe>
     </div>
   </section>
 </div>

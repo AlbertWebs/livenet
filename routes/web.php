@@ -2,6 +2,33 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\HomeSectionController;
+use App\Http\Controllers\Admin\InternetPlanController;
+use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\MediaController;
+
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('settings', [SiteSettingController::class, 'index'])->name('settings.index');
+    Route::put('settings', [SiteSettingController::class, 'update'])->name('settings.update');
+    Route::resource('pages', PageController::class);
+    Route::resource('home-sections', HomeSectionController::class)->except(['show', 'destroy']);
+    Route::resource('internet-plans', InternetPlanController::class);
+    Route::resource('articles', ArticleController::class);
+    Route::resource('testimonials', TestimonialController::class);
+    Route::get('media', [MediaController::class, 'index'])->name('media.index');
+    Route::post('media', [MediaController::class, 'store'])->name('media.store');
+    Route::delete('media/{medium}', [MediaController::class, 'destroy'])->name('media.destroy');
+});
 
 Route::view('/', 'home')->name('home');
 Route::view('/home-internet', 'home-internet')->name('home-internet');
