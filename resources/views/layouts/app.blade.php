@@ -61,7 +61,38 @@
     0%, 100% { opacity: 1; transform: scale(1); }
     50% { opacity: 0.7; transform: scale(1.08); }
   }
+
+  /* Scroll-triggered animations */
+  .scroll-animate {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+  }
+  .scroll-animate.is-in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .scroll-animate--left { transform: translateX(-32px) translateY(0); }
+  .scroll-animate--left.is-in-view { transform: translateX(0) translateY(0); }
+  .scroll-animate--right { transform: translateX(32px) translateY(0); }
+  .scroll-animate--right.is-in-view { transform: translateX(0) translateY(0); }
+  .scroll-animate--scale { transform: translateY(0) scale(0.96); }
+  .scroll-animate--scale.is-in-view { transform: translateY(0) scale(1); }
+  .scroll-animate[data-scroll-delay] { transition-delay: calc(var(--scroll-delay, 0) * 1ms); }
 </style>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/69a3d5aa52cbb51c37095535/1jijvl9fc';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
 </head>
 <body id="top">
   <div class="page-preloader" id="page-preloader" aria-hidden="true">
@@ -103,6 +134,21 @@
       var b2t = document.getElementById('back-to-top');
       if (b2t) b2t.classList.toggle('visible', window.scrollY > 300);
     });
+
+    (function scrollAnimate() {
+      var els = document.querySelectorAll('.scroll-animate');
+      if (!els.length) return;
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          var delay = el.getAttribute('data-scroll-delay');
+          if (delay) el.style.setProperty('--scroll-delay', delay);
+          el.classList.add('is-in-view');
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
+      els.forEach(function(el) { io.observe(el); });
+    })();
 
     (function() {
       var modal = document.getElementById('apply-modal');

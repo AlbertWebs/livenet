@@ -19,7 +19,7 @@
 @endsection
 
 @section('content')
-<section class="page-hero">
+<section class="page-hero scroll-animate">
   <div class="container">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="{{ route('home') }}">Home</a> / Business Internet
@@ -29,7 +29,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section scroll-animate">
   <div class="container">
     <h2 class="section-title">Business Internet Solutions</h2>
     <p class="section-subtitle">We deliver reliable, scalable internet so your business stays online. Backed by SLAs and a team that responds when it matters.</p>
@@ -53,7 +53,7 @@
   </div>
 </section>
 
-<section class="section section-alt">
+<section class="section section-alt scroll-animate">
   <div class="container">
     <h2 class="section-title">Business Plans & Pricing</h2>
     <p class="section-subtitle">Scale your bandwidth as you grow. All business plans include SLA and dedicated support.</p>
@@ -96,7 +96,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section scroll-animate">
   <div class="container">
     <h2 class="section-title">Why Businesses Choose Livenet</h2>
     <div class="feature-grid">
@@ -119,7 +119,7 @@
   </div>
 </section>
 
-<section class="cta-strip">
+<section class="cta-strip scroll-animate">
   <div class="container">
     <h2>Get Business Internet That Works as Hard as You Do</h2>
     <p>Apply for connection or talk to our business team for a custom quote.</p>

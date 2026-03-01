@@ -20,7 +20,7 @@
 
 @section('content')
 <div class="page-contact">
-  <section class="page-hero contact-hero--vibrant">
+  <section class="page-hero contact-hero--vibrant scroll-animate">
     <div class="contact-hero__glow" aria-hidden="true"></div>
     <div class="container">
       <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -31,7 +31,7 @@
     </div>
   </section>
 
-  <section class="section contact-section" id="apply">
+  <section class="section contact-section scroll-animate" id="apply">
     <div class="container">
       @if (session('success'))
         <div class="contact-alert contact-alert--success" role="alert">{{ session('success') }}</div>
@@ -116,7 +116,7 @@
     </div>
   </section>
 
-  <section class="section section-alt contact-map-section">
+  <section class="section section-alt contact-map-section scroll-animate">
     <div class="container">
       <h2 class="section-title section-title--contact">Find Us</h2>
       <p class="section-subtitle">Visit our office or get in touch online. We're happy to help.</p>

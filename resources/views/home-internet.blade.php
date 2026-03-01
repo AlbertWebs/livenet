@@ -19,7 +19,7 @@
 @endsection
 
 @section('content')
-<section class="page-hero">
+<section class="page-hero scroll-animate">
   <div class="container">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="{{ route('home') }}">Home</a> / Home Internet
@@ -29,7 +29,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section scroll-animate">
   <div class="container">
     <h2 class="section-title">Plans Built for How You Use the Internet</h2>
     <p class="section-subtitle">Choose the speed that fits your household. All plans include free equipment and 24/7 support.</p>
@@ -71,7 +71,7 @@
   </div>
 </section>
 
-<section class="section section-alt">
+<section class="section section-alt scroll-animate">
   <div class="container">
     <h2 class="section-title">Benefits of Livenet Home Internet</h2>
     <div class="feature-grid">
@@ -99,7 +99,7 @@
   </div>
 </section>
 
-<section class="cta-strip">
+<section class="cta-strip scroll-animate">
   <div class="container">
     <h2>Get Connected at Home</h2>
     <p>Apply for connection and we'll get you set up with fast, reliable home internet.</p>

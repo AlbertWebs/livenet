@@ -20,7 +20,7 @@
 
 @section('content')
 <div class="page-about">
-  <section class="page-hero about-hero--vibrant">
+  <section class="page-hero about-hero--vibrant scroll-animate">
     <div class="contact-hero__glow" aria-hidden="true"></div>
     <div class="container">
       <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -31,7 +31,7 @@
     </div>
   </section>
 
-  <section class="section about-section">
+  <section class="section about-section scroll-animate">
     <div class="container">
       <div class="about-intro">
         <h2 class="section-title">Our Story</h2>
@@ -39,7 +39,7 @@
         <p>Today we serve thousands of homes and businesses across Nairobi and environs. From streaming and remote work to enterprise connectivity, we provide plans that fit how you live and work—with transparent pricing, no hidden fees, and support that actually answers.</p>
       </div>
 
-      <div class="about-values">
+      <div class="about-values scroll-animate">
         <h2 class="section-title">What We Stand For</h2>
         <div class="about-values-grid">
           <div class="about-value-card">

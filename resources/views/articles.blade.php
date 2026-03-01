@@ -19,7 +19,7 @@
 @endsection
 
 @section('content')
-<section class="page-hero">
+<section class="page-hero scroll-animate">
   <div class="container">
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="{{ route('home') }}">Home</a> / Articles
@@ -29,7 +29,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section scroll-animate">
   <div class="container">
     <div class="articles-toolbar">
       <div class="search-wrap">

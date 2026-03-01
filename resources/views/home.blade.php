@@ -53,7 +53,7 @@
   </div>
 </section>
 
-<section class="section section-alt section--vibrant" id="features">
+<section class="section section-alt section--vibrant scroll-animate" id="features">
   <div class="container">
     <h2 class="section-title section-title--gradient">Internet Services for Home & Business</h2>
     <p class="section-subtitle">Whether you need seamless streaming at home or enterprise-grade connectivity for your business, we have a plan that fits.</p>
@@ -74,7 +74,7 @@
   </div>
 </section>
 
-<section class="section section-alt section--vibrant" id="packages">
+<section class="section section-alt section--vibrant scroll-animate" id="packages">
   <div class="container">
     <h2 class="section-title section-title--gradient">Internet Packages</h2>
     <p class="section-subtitle">Choose from our home and business plans. All packages include reliable connectivity and support.</p>
@@ -152,7 +152,7 @@
   </div>
 </section>
 
-<section class="section section--vibrant coverage-section" id="coverage">
+<section class="section section--vibrant coverage-section scroll-animate" id="coverage">
   <div class="container">
     <h2 class="section-title section-title--gradient">Our Coverage</h2>
     <p class="section-subtitle">We serve Nairobi and environs. Hover over the map to see covered areas.</p>
@@ -165,7 +165,7 @@
   </div>
 </section>
 
-<section class="section section--vibrant">
+<section class="section section--vibrant scroll-animate">
   <div class="container">
     <h2 class="section-title section-title--gradient">Why Choose Livenet Solutions</h2>
     <p class="section-subtitle">We focus on speed, reliability, and support so you can focus on what matters.</p>
@@ -189,7 +189,7 @@
   </div>
 </section>
 
-<section class="section testimonials testimonials--vibrant">
+<section class="section testimonials testimonials--vibrant scroll-animate">
   <div class="container">
     <h2 class="section-title section-title--gradient">What Our Customers Say</h2>
     <p class="section-subtitle">Thousands of homes and businesses trust Livenet Solutions for their internet.</p>
@@ -221,7 +221,7 @@
   </div>
 </section>
 
-<section class="cta-strip cta-strip--vibrant">
+<section class="cta-strip cta-strip--vibrant scroll-animate">
   <div class="container">
     <h2>Ready to Get Connected?</h2>
     <p>Apply for connection today and enjoy fast, reliable internet at home or at work.</p>
