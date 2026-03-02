@@ -17,7 +17,7 @@ class ConnectionApplicationNotification extends Mailable
         public string $email,
         public ?string $phone,
         public ?string $service,
-        public ?string $message
+        public ?string $applicantMessage
     ) {}
 
     public function envelope(): Envelope

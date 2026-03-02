@@ -1609,7 +1609,7 @@ a:hover {
 .apply-modal__challenge input {
   margin-bottom: 0;
   margin-top: 0.5rem;
-  max-width: 120px;
+  width: 100%;
 }
 
 .apply-modal__submit {

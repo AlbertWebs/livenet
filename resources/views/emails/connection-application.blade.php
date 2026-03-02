@@ -13,8 +13,8 @@
         <tr><td style="padding: 6px 0; border-bottom: 1px solid #eee;"><strong>Email</strong></td><td style="padding: 6px 0; border-bottom: 1px solid #eee;"><a href="mailto:{{ $email }}">{{ $email }}</a></td></tr>
         <tr><td style="padding: 6px 0; border-bottom: 1px solid #eee;"><strong>Phone</strong></td><td style="padding: 6px 0; border-bottom: 1px solid #eee;">{{ $phone ?? '—' }}</td></tr>
         <tr><td style="padding: 6px 0; border-bottom: 1px solid #eee;"><strong>Service</strong></td><td style="padding: 6px 0; border-bottom: 1px solid #eee;">{{ $service ? ($service === 'home' ? 'Home Internet' : 'Business Internet') : '—' }}</td></tr>
-        @if($message)
-        <tr><td style="padding: 6px 0; border-bottom: 1px solid #eee;"><strong>Message / Address</strong></td><td style="padding: 6px 0; border-bottom: 1px solid #eee;">{{ $message }}</td></tr>
+        @if($applicantMessage)
+        <tr><td style="padding: 6px 0; border-bottom: 1px solid #eee;"><strong>Message / Address</strong></td><td style="padding: 6px 0; border-bottom: 1px solid #eee;">{{ $applicantMessage }}</td></tr>
         @endif
     </table>
     <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #666;">Reply directly to the applicant using the email above.</p>
