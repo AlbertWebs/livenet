@@ -233,7 +233,10 @@ s0.parentNode.insertBefore(s1,s0);
             showError('Please solve the arithmetic question correctly.');
             return;
           }
+          var submitBtnLabel = submitBtn.innerHTML;
           submitBtn.disabled = true;
+          submitBtn.innerHTML = '<span class="apply-modal__submit-spinner" aria-hidden="true"></span> Submitting…';
+          submitBtn.setAttribute('aria-busy', 'true');
           errorEl.hidden = true;
           var action = form.getAttribute('action');
           var body = new FormData(form);
@@ -261,6 +264,8 @@ s0.parentNode.insertBefore(s1,s0);
             })
             .finally(function() {
               submitBtn.disabled = false;
+              submitBtn.innerHTML = submitBtnLabel;
+              submitBtn.removeAttribute('aria-busy');
             });
         });
       }

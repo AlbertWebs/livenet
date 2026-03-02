@@ -2,7 +2,11 @@
   <div class="header-accent"></div>
   <div class="nav-inner">
     <a href="{{ route('home') }}" class="logo">
-      <img src="{{ asset('logo.png') }}" alt="Livenet Solutions" class="logo-img" width="160" height="40">
+      @if(!empty($siteSettings['logo'] ?? null))
+        <img src="{{ asset('storage/' . $siteSettings['logo']) }}" alt="{{ $siteSettings['site_name'] ?? 'Livenet Solutions' }}" class="logo-img" width="160" height="40">
+      @else
+        <img src="{{ asset('logo.png') }}" alt="{{ $siteSettings['site_name'] ?? 'Livenet Solutions' }}" class="logo-img" width="160" height="40">
+      @endif
     </a>
     <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
       <span></span><span></span><span></span>

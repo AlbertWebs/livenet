@@ -1,4 +1,4 @@
-﻿@extends('admin.layouts.app')
+@extends('admin.layouts.app')
 
 @section('title', 'Site Settings')
 @section('page_title', 'Site Settings')
@@ -24,9 +24,13 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1.5">Logo</label>
                     @if(!empty($settings['logo']))
-                        <div class="flex items-center gap-4 mb-3">
+                        <div class="flex items-center gap-4 mb-3 flex-wrap">
                             <img src="{{ asset('storage/' . $settings['logo']) }}" alt="Current logo" class="h-12 w-auto object-contain rounded-lg border border-gray-200 bg-gray-50 p-1">
                             <span class="text-sm text-gray-500">Current logo</span>
+                            <label class="inline-flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="remove_logo" value="1" class="rounded border-gray-300 text-red-600 focus:ring-red-500">
+                                <span class="text-sm text-red-600 font-medium">Remove logo</span>
+                            </label>
                         </div>
                     @endif
                     <div class="flex items-center gap-3">
@@ -41,9 +45,13 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1.5">Favicon</label>
                     @if(!empty($settings['favicon']))
-                        <div class="flex items-center gap-4 mb-3">
+                        <div class="flex items-center gap-4 mb-3 flex-wrap">
                             <img src="{{ asset('storage/' . $settings['favicon']) }}" alt="Current favicon" class="h-8 w-8 object-contain rounded border border-gray-200 bg-gray-50 p-0.5">
                             <span class="text-sm text-gray-500">Current favicon</span>
+                            <label class="inline-flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="remove_favicon" value="1" class="rounded border-gray-300 text-red-600 focus:ring-red-500">
+                                <span class="text-sm text-red-600 font-medium">Remove favicon</span>
+                            </label>
                         </div>
                     @endif
                     <div class="flex items-center gap-3">

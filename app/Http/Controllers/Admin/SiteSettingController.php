@@ -38,10 +38,14 @@ class SiteSettingController extends Controller
         foreach ($data as $key => $value) {
             SiteSetting::set($key, $value ?? '');
         }
-        if ($request->hasFile('logo')) {
+        if ($request->boolean('remove_logo')) {
+            SiteSetting::set('logo', '');
+        } elseif ($request->hasFile('logo')) {
             SiteSetting::set('logo', $request->file('logo')->store('settings', 'public'));
         }
-        if ($request->hasFile('favicon')) {
+        if ($request->boolean('remove_favicon')) {
+            SiteSetting::set('favicon', '');
+        } elseif ($request->hasFile('favicon')) {
             SiteSetting::set('favicon', $request->file('favicon')->store('settings', 'public'));
         }
         return redirect()->route('admin.settings.index')->with('success', 'Settings updated.');
