@@ -5,11 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>@yield('title', 'Livenet Solutions')</title>
   <meta name="description" content="@yield('meta_description', 'Fast, reliable internet for home and business.')">
+  @yield('meta_extra')
   @hasSection('og_title')
     <meta property="og:title" content="@yield('og_title')">
     <meta property="og:description" content="@yield('og_description')">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
+    @hasSection('og_image')
+    <meta property="og:image" content="@yield('og_image')">
+    <meta property="og:image:secure_url" content="@yield('og_image')">
+    <meta property="og:image:width" content="@yield('og_image_width', '1200')">
+    <meta property="og:image:height" content="@yield('og_image_height', '630')">
+    <meta property="og:image:alt" content="@yield('og_image_alt', 'Livenet Solutions')">
+    @endif
+    <meta property="og:site_name" content="@yield('og_site_name', $siteSettings['site_name'] ?? 'Livenet Solutions')">
+    <meta property="og:locale" content="@yield('og_locale', 'en_KE')">
+    <meta name="twitter:card" content="@yield('twitter_card', 'summary_large_image')">
+    <meta name="twitter:title" content="@yield('og_title')">
+    <meta name="twitter:description" content="@yield('og_description')">
+    @hasSection('og_image')
+    <meta name="twitter:image" content="@yield('og_image')">
+    <meta name="twitter:image:alt" content="@yield('og_image_alt', 'Livenet Solutions')">
+    @endif
   @endif
   <link rel="canonical" href="@yield('canonical', url()->current())">
   <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">

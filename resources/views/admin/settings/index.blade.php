@@ -144,11 +144,11 @@
             </div>
         </section>
 
-        {{-- SEO --}}
+        {{-- SEO & sharing --}}
         <section class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/80">
-                <h2 class="text-sm font-semibold text-gray-900 tracking-wide uppercase">SEO</h2>
-                <p class="text-xs text-gray-500 mt-0.5">Default meta tags for search engines</p>
+                <h2 class="text-sm font-semibold text-gray-900 tracking-wide uppercase">SEO & link preview</h2>
+                <p class="text-xs text-gray-500 mt-0.5">Meta tags for search engines and social sharing (landing page)</p>
             </div>
             <div class="p-6 space-y-5">
                 <div>
@@ -157,7 +157,26 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1.5">Default meta description</label>
-                    <textarea name="seo_meta_description" rows="2" placeholder="Short description for search results..." class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition resize-none">{{ old('seo_meta_description', $settings['seo_meta_description'] ?? '') }}</textarea>
+                    <textarea name="seo_meta_description" rows="2" placeholder="Short description for search results and link previews..." class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition resize-none">{{ old('seo_meta_description', $settings['seo_meta_description'] ?? '') }}</textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1.5">Share image (OG image)</label>
+                    <p class="text-xs text-gray-500 mb-2">Used when the homepage is shared on social (Facebook, Twitter, etc.). Recommended: 1200×630 px. If empty, logo is used.</p>
+                    @if(!empty($settings['og_image']))
+                        <div class="flex items-center gap-4 mb-3 flex-wrap">
+                            <img src="{{ asset('storage/' . $settings['og_image']) }}" alt="Current share image" class="h-24 w-auto object-contain rounded-lg border border-gray-200 bg-gray-50 p-1">
+                            <span class="text-sm text-gray-500">Current share image</span>
+                            <label class="inline-flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" name="remove_og_image" value="1" class="rounded border-gray-300 text-red-600 focus:ring-red-500">
+                                <span class="text-sm text-red-600 font-medium">Remove</span>
+                            </label>
+                        </div>
+                    @endif
+                    <label class="cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm font-medium text-gray-700 hover:bg-gray-100 transition">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        Choose share image
+                        <input type="file" name="og_image" accept="image/*" class="sr-only">
+                    </label>
                 </div>
             </div>
         </section>

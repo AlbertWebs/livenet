@@ -1,9 +1,31 @@
 @extends('layouts.app')
 
-@section('title', 'Livenet Solutions | Fast, Reliable Home & Business Internet')
-@section('meta_description', 'Livenet Solutions delivers fast, reliable internet for home and business. Get connected with our high-speed fiber plans and dedicated support.')
-@section('og_title', 'Livenet Solutions | Fast, Reliable Home & Business Internet')
-@section('og_description', 'Fast, reliable internet for home and business. High-speed fiber, 24/7 support, no data caps.')
+@php
+  $siteName = $siteSettings['site_name'] ?? 'Livenet Solutions';
+  $seoTitle = $siteSettings['seo_meta_title'] ?? $siteName . ' | Fast, Reliable Home & Business Internet';
+  $seoDesc = $siteSettings['seo_meta_description'] ?? 'Livenet Solutions delivers fast, reliable internet for home and business. Get connected with our high-speed fiber plans and dedicated support.';
+  $ogDesc = $siteSettings['seo_meta_description'] ?? 'Fast, reliable internet for home and business. High-speed fiber, 24/7 support, no data caps.';
+  $ogImage = !empty($siteSettings['og_image']) ? asset('storage/' . $siteSettings['og_image']) : (!empty($siteSettings['logo']) ? asset('storage/' . $siteSettings['logo']) : asset('logo.png'));
+  $ogImageUrl = url($ogImage);
+  $phone = $siteSettings['phone'] ?? '+254712104104';
+  $email = $siteSettings['contact_email'] ?? 'info@livenetsolutions.com';
+  $address = $siteSettings['address'] ?? 'Nairobi, Kenya';
+@endphp
+
+@section('title', $seoTitle)
+@section('meta_description', $seoDesc)
+@section('meta_extra')
+  <meta name="robots" content="index, follow">
+  <meta name="keywords" content="internet provider Kenya, high-speed internet Nairobi, home internet, business internet, fiber internet, broadband, Livenet Solutions, reliable internet">
+@endsection
+
+@section('canonical', url('/'))
+
+@section('og_title', $seoTitle)
+@section('og_description', $ogDesc)
+@section('og_image', $ogImageUrl)
+@section('og_image_alt', $siteName . ' – Fast, reliable internet for home and business')
+@section('og_site_name', $siteName)
 
 @section('jsonld')
 @verbatim
@@ -11,20 +33,20 @@
 {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": "Livenet Solutions",
-  "url": "{{ url('/') }}",
-  "logo": "{{ asset('logo.png') }}",
-  "description": "Internet service provider supplying home and business internet with fast, reliable connectivity.",
+  "name": {{ json_encode($siteName) }},
+  "url": {{ json_encode(url('/')) }},
+  "logo": {{ json_encode(url(!empty($siteSettings['logo']) ? asset('storage/' . $siteSettings['logo']) : asset('logo.png'))) }},
+  "description": {{ json_encode($seoDesc) }},
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": "+254712104104",
+    "telephone": {{ json_encode(preg_replace('/\s+/', '', $phone)) }},
     "contactType": "customer service",
-    "email": "info@livenetsolutions.com",
+    "email": {{ json_encode($email) }},
     "areaServed": "KE"
   },
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "Nairobi",
+    "addressLocality": {{ json_encode($address) }},
     "addressCountry": "KE"
   }
 }
