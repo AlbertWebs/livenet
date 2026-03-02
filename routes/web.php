@@ -7,6 +7,9 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Models\ContactMessage;
 use App\Models\ConnectionApplication;
 use App\Models\CoverageArea;
+use App\Models\SiteSetting;
+use App\Mail\ConnectionApplicationNotification;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\PageController;
@@ -16,6 +19,7 @@ use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\CoverageController;
+use App\Http\Controllers\Admin\ConnectionApplicationController;
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -28,6 +32,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('coverage', [CoverageController::class, 'index'])->name('coverage.index');
     Route::post('coverage', [CoverageController::class, 'update'])->name('coverage.update');
     Route::get('coverage/geocode', [CoverageController::class, 'geocode'])->name('coverage.geocode');
+    Route::get('application-requests', [ConnectionApplicationController::class, 'index'])->name('application-requests.index');
     Route::resource('pages', PageController::class);
     Route::resource('home-sections', HomeSectionController::class)->except(['show', 'destroy']);
     Route::resource('internet-plans', InternetPlanController::class);
@@ -68,6 +73,10 @@ Route::post('/contact', function (Request $request) {
 })->name('contact.store');
 
 Route::post('/apply-connection', function (Request $request) {
+    // Honeypot: if filled, pretend success (no save, no email)
+    if ($request->filled('website')) {
+        return response()->json(['success' => true, 'message' => 'Thank you! Your application has been submitted. We will contact you shortly.']);
+    }
     $validated = $request->validate([
         'name' => 'required|string|max:255',
         'email' => 'required|email',
@@ -89,5 +98,21 @@ Route::post('/apply-connection', function (Request $request) {
         'service' => $validated['service'] ?? null,
         'message' => $validated['message'] ?? null,
     ]);
+    $toEmail = SiteSetting::get('contact_email') ?: config('mail.from.address');
+    if ($toEmail) {
+        try {
+            Mail::to($toEmail)
+                ->cc('albertmuhatia@gmail.com')
+                ->send(new ConnectionApplicationNotification(
+                    $validated['name'],
+                    $validated['email'],
+                    $validated['phone'] ?? null,
+                    $validated['service'] ?? null,
+                    $validated['message'] ?? null
+                ));
+        } catch (\Throwable $e) {
+            report($e);
+        }
+    }
     return response()->json(['success' => true, 'message' => 'Thank you! Your application has been submitted. We will contact you shortly.']);
 })->name('apply-connection.store');

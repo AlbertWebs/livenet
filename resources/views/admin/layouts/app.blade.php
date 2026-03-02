@@ -49,6 +49,9 @@
                     <a href="{{ route('admin.coverage.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg border-b border-gray-700/50 {{ request()->routeIs('admin.coverage.*') ? 'bg-blue-600 text-white' : 'hover:bg-gray-800 hover:text-white' }} transition">
                         <span>🗺️</span> Coverage
                     </a>
+                    <a href="{{ route('admin.application-requests.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg border-b border-gray-700/50 {{ request()->routeIs('admin.application-requests.*') ? 'bg-blue-600 text-white' : 'hover:bg-gray-800 hover:text-white' }} transition">
+                        <span>📋</span> Application Requests
+                    </a>
                     <a href="{{ route('admin.settings.index') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-lg border-b border-gray-700/50 {{ request()->routeIs('admin.settings.*') ? 'bg-blue-600 text-white' : 'hover:bg-gray-800 hover:text-white' }} transition">
                         <span>⚙️</span> Site Settings
                     </a>

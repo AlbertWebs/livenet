@@ -1757,27 +1757,80 @@ a:hover {
   color: #155724;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .apply-modal {
-    padding: 12px;
+    padding: 0;
     align-items: flex-end;
   }
 
   .apply-modal__box {
-    max-height: 90vh;
-    border-radius: 12px 12px 0 0;
-    padding: 1.5rem;
+    width: 100%;
+    max-width: none;
+    max-height: min(92vh, calc(100dvh - 12px));
+    border-radius: 16px 16px 0 0;
+    padding: 1.25rem 1rem calc(1.25rem + env(safe-area-inset-bottom, 0px));
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  .apply-modal__close {
+    top: 0.75rem;
+    right: 0.5rem;
+    width: 44px;
+    height: 44px;
+    font-size: 1.75rem;
+  }
+
+  .apply-modal__title {
+    font-size: 1.25rem;
+    margin-bottom: 0.15rem;
+    padding-right: 2.5rem;
+  }
+
+  .apply-modal__subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .apply-modal__form label {
+    font-size: 0.85rem;
+    margin-bottom: 0.25rem;
   }
 
   .apply-modal__form input,
   .apply-modal__form select,
   .apply-modal__form textarea {
     padding: 12px 14px;
-    font-size: 16px; /* avoids zoom on focus in iOS */
+    margin-bottom: 0.75rem;
+    font-size: 16px;
+    min-height: 44px;
+    box-sizing: border-box;
+  }
+
+  .apply-modal__form textarea {
+    min-height: 72px;
+    resize: vertical;
+  }
+
+  .apply-modal__challenge {
+    margin: 0.75rem 0 1rem;
+    padding: 0.75rem 1rem;
   }
 
   .apply-modal__challenge input {
     max-width: 100%;
+    min-height: 44px;
+  }
+
+  .apply-modal__submit {
+    padding: 14px 1rem calc(14px + env(safe-area-inset-bottom, 0px));
+    margin-top: 0.25rem;
+    min-height: 48px;
+  }
+
+  .apply-modal__message {
+    padding: 10px 12px;
+    margin-bottom: 0.75rem;
   }
 }
 

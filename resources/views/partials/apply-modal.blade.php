@@ -12,6 +12,11 @@
       @csrf
       <input type="hidden" name="challenge_num1" id="apply-challenge-num1" value="">
       <input type="hidden" name="challenge_num2" id="apply-challenge-num2" value="">
+      {{-- Honeypot: leave empty; bots often fill it --}}
+      <div class="apply-modal__hp" aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
+        <label for="apply-website">Website</label>
+        <input type="text" name="website" id="apply-website" value="" tabindex="-1" autocomplete="off">
+      </div>
 
       <label for="apply-name">Name <span class="required">*</span></label>
       <input type="text" id="apply-name" name="name" required placeholder="Your full name" autocomplete="name">
