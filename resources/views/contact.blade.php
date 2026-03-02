@@ -122,7 +122,14 @@
       <p class="section-subtitle">Visit our office or get in touch online. We're happy to help.</p>
     </div>
     <div class="contact-map-wrap contact-map-wrap--full">
-      <iframe class="contact-map-iframe" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2042704.2711447817!2d34.806963249999995!3d-0.51558895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6dcc67caaba0276b%3A0x8e3ad9a571ec57a5!2sLIVENET%20SOLUTIONS!5e0!3m2!1sen!2ske!4v1772260543047!5m2!1sen!2ske" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Livenet Solutions location map"></iframe>
+      @php
+        $contactMapUrl = $siteSettings['map_embed_url'] ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2042704.2711447817!2d34.806963249999995!3d-0.51558895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6dcc67caaba0276b%3A0x8e3ad9a571ec57a5!2sLIVENET%20SOLUTIONS!5e0!3m2!1sen!2ske!4v1772260543047!5m2!1sen!2ske';
+      @endphp
+      @if(!empty(trim($contactMapUrl)))
+      <iframe class="contact-map-iframe" src="{{ $contactMapUrl }}" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Livenet Solutions location map"></iframe>
+      @else
+      <div class="contact-map-placeholder" style="height:450px;background:var(--bg-alt, #f0f4f8);display:flex;align-items:center;justify-content:center;color:#666;">Set a map URL in Admin → Site Settings → Contact page map.</div>
+      @endif
     </div>
   </section>
 </div>

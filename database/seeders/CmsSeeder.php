@@ -33,10 +33,47 @@ class CmsSeeder extends Seeder
         HomeSection::updateOrCreate(['name' => 'testimonials'], ['title' => 'What Our Customers Say', 'subtitle' => 'Thousands of homes and businesses trust Livenet Solutions.', 'is_active' => true, 'sort_order' => 2]);
         HomeSection::updateOrCreate(['name' => 'cta'], ['title' => 'Ready to Get Connected?', 'subtitle' => 'Apply for connection today and enjoy fast, reliable internet.', 'is_active' => true, 'sort_order' => 3]);
 
+        InternetPlan::where('type', 'home')->delete();
+
         $homePlans = [
-            ['name' => 'Starter', 'speed' => '100 Mbps', 'price' => 4999, 'features' => json_encode(['Up to 100 Mbps', 'Unlimited data', 'Free modem rental']), 'sort_order' => 0],
-            ['name' => 'Essential', 'speed' => '300 Mbps', 'price' => 6999, 'is_highlighted' => true, 'badge' => 'Popular', 'features' => json_encode(['Up to 300 Mbps', 'Unlimited data', 'Free modem + WiFi router']), 'sort_order' => 1],
-            ['name' => 'Premium', 'speed' => '1 Gbps', 'price' => 9999, 'features' => json_encode(['Up to 1 Gbps', 'Unlimited data', 'Premium WiFi equipment']), 'sort_order' => 2],
+            ['name' => 'Rabbit Plan', 'speed' => '7 Mbps', 'price' => 1500, 'features' => json_encode([
+                'For Fast web browsing',
+                'For SD Movie & music streaming',
+                'For Internet surfing, social media & email',
+            ]), 'sort_order' => 0],
+            ['name' => 'Rhino Plan', 'speed' => '13 Mbps', 'price' => 2000, 'is_highlighted' => true, 'badge' => 'Popular', 'features' => json_encode([
+                'For Fast web browsing & Video calls',
+                'For HD TV shows and movies',
+                'For Internet surfing, social media & email',
+                'For Moderate streaming at 1080p',
+                'Superfast video downloads',
+                'CCTV devices Capability',
+                'For lite files transfer',
+            ]), 'sort_order' => 1],
+            ['name' => 'Leopard Plan', 'speed' => '18 Mbps', 'price' => 2500, 'features' => json_encode([
+                'For Superfast web browsing',
+                'For 4K Movies & TV Shows',
+                'For online gaming and downloading',
+                'Music and football streaming @1080p',
+                'For superfast video downloads',
+                'CCTV devices Capability',
+                'For heavy files transfer',
+            ]), 'sort_order' => 2],
+            ['name' => 'Lion Plan', 'speed' => '23 Mbps', 'price' => 3000, 'features' => json_encode([
+                'For Superfast web browsing',
+                'For 4K Movie & TV Shows',
+                'For Heavy online gaming and downloading',
+                'For multiple device streaming',
+                'Superfast video, sports & music streaming at 4K',
+                'CCTV devices Capability',
+            ]), 'sort_order' => 3],
+            ['name' => 'Elephant Plan', 'speed' => '30 Mbps', 'price' => 3500, 'features' => json_encode([
+                'High-definition Movie and TV shows streaming 4K/8K',
+                'Heavy online gaming and downloading',
+                'Home Automation',
+                'Multiple device live sports streaming',
+                'Superfast video downloads & music streaming',
+            ]), 'sort_order' => 4],
         ];
         foreach ($homePlans as $p) {
             InternetPlan::updateOrCreate(['type' => 'home', 'name' => $p['name']], array_merge($p, ['type' => 'home', 'currency' => 'KES']));

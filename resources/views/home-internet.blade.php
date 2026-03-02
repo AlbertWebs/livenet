@@ -32,41 +32,24 @@
 <section class="section scroll-animate">
   <div class="container">
     <h2 class="section-title">Plans Built for How You Use the Internet</h2>
-    <p class="section-subtitle">Choose the speed that fits your household. All plans include free equipment and 24/7 support.</p>
+    <p class="section-subtitle">Choose the speed that fits your household. All plans include reliable connectivity and support.</p>
     <div class="plans-grid">
-      <div class="plan-card">
-        <h3>Starter</h3>
-        <p class="price-tag">KES 4,999<small>/mo</small></p>
+      @forelse($homePlans as $plan)
+      <div class="plan-card {{ $plan->is_highlighted ? 'featured' : '' }}">
+        @if($plan->badge)<span class="plan-card__badge">{{ $plan->badge }}</span>@endif
+        <h3>{{ $plan->name }}</h3>
+        <p class="price-tag">{{ $plan->currency }} {{ number_format($plan->price) }}<small>/mo</small></p>
+        @if($plan->speed)<p class="plan-card__speed">{{ $plan->speed }}</p>@endif
         <ul>
-          <li>Up to 100 Mbps download</li>
-          <li>Unlimited data</li>
-          <li>Free modem rental</li>
-          <li>Email & chat support</li>
+          @foreach($plan->features_list as $feature)
+          <li>{{ $feature }}</li>
+          @endforeach
         </ul>
-        <a href="{{ route('contact') }}#apply" class="btn btn-secondary">Apply for Connection</a>
+        <a href="{{ route('contact') }}#apply" class="btn {{ $plan->is_highlighted ? 'btn-primary' : 'btn-secondary' }}">Apply for Connection</a>
       </div>
-      <div class="plan-card featured">
-        <h3>Essential</h3>
-        <p class="price-tag">KES 6,999<small>/mo</small></p>
-        <ul>
-          <li>Up to 300 Mbps download</li>
-          <li>Unlimited data</li>
-          <li>Free modem + WiFi router</li>
-          <li>24/7 phone & chat support</li>
-        </ul>
-        <a href="{{ route('contact') }}#apply" class="btn btn-primary">Apply for Connection</a>
-      </div>
-      <div class="plan-card">
-        <h3>Premium</h3>
-        <p class="price-tag">KES 9,999<small>/mo</small></p>
-        <ul>
-          <li>Up to 1 Gbps download</li>
-          <li>Unlimited data</li>
-          <li>Premium WiFi equipment</li>
-          <li>Priority 24/7 support</li>
-        </ul>
-        <a href="{{ route('contact') }}#apply" class="btn btn-secondary">Apply for Connection</a>
-      </div>
+      @empty
+      <p class="text-muted">Plans are being updated. Please check back soon or <a href="{{ route('contact') }}#apply">contact us</a>.</p>
+      @endforelse
     </div>
   </div>
 </section>

@@ -2,7 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use App\Http\Controllers\Auth\LoginController;
+use App\Models\ContactMessage;
+use App\Models\ConnectionApplication;
+use App\Models\CoverageArea;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SiteSettingController;
 use App\Http\Controllers\Admin\PageController;
@@ -11,6 +15,7 @@ use App\Http\Controllers\Admin\InternetPlanController;
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\CoverageController;
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -20,6 +25,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('settings', [SiteSettingController::class, 'index'])->name('settings.index');
     Route::put('settings', [SiteSettingController::class, 'update'])->name('settings.update');
+    Route::get('coverage', [CoverageController::class, 'index'])->name('coverage.index');
+    Route::post('coverage', [CoverageController::class, 'update'])->name('coverage.update');
+    Route::get('coverage/geocode', [CoverageController::class, 'geocode'])->name('coverage.geocode');
     Route::resource('pages', PageController::class);
     Route::resource('home-sections', HomeSectionController::class)->except(['show', 'destroy']);
     Route::resource('internet-plans', InternetPlanController::class);
@@ -29,6 +37,18 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::post('media', [MediaController::class, 'store'])->name('media.store');
     Route::delete('media/{medium}', [MediaController::class, 'destroy'])->name('media.destroy');
 });
+
+Route::get('/coverage-zones.json', function () {
+    if (! Schema::hasTable('coverage_areas')) {
+        return response()->json(config('coverage.default_zones', []));
+    }
+    $areas = CoverageArea::orderBy('sort_order')->get();
+    if ($areas->isEmpty()) {
+        return response()->json(config('coverage.default_zones', []));
+    }
+    $zones = $areas->map(fn ($a) => ['name' => $a->name, 'coords' => $a->coords ?? []])->values()->toArray();
+    return response()->json($zones);
+})->name('coverage.zones');
 
 Route::view('/', 'home')->name('home');
 Route::view('/home-internet', 'home-internet')->name('home-internet');
@@ -43,7 +63,7 @@ Route::post('/contact', function (Request $request) {
         'phone' => 'nullable|string|max:50',
         'message' => 'required|string|max:5000',
     ]);
-    // TODO: Send email or store in DB using $validated
+    ContactMessage::create($validated);
     return redirect()->route('contact')->with('success', 'Thank you! Your message has been sent. We will get back to you within one business day.');
 })->name('contact.store');
 
@@ -62,6 +82,12 @@ Route::post('/apply-connection', function (Request $request) {
     if ((int) $request->challenge_answer !== $expected) {
         return response()->json(['message' => 'Invalid security check. Please solve the arithmetic question correctly.'], 422);
     }
-    // TODO: Send email or store application using $validated
+    ConnectionApplication::create([
+        'name' => $validated['name'],
+        'email' => $validated['email'],
+        'phone' => $validated['phone'] ?? null,
+        'service' => $validated['service'] ?? null,
+        'message' => $validated['message'] ?? null,
+    ]);
     return response()->json(['success' => true, 'message' => 'Thank you! Your application has been submitted. We will contact you shortly.']);
 })->name('apply-connection.store');

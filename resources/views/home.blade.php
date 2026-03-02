@@ -13,7 +13,7 @@
   "@type": "Organization",
   "name": "Livenet Solutions",
   "url": "{{ url('/') }}",
-  "logo": "{{ asset('images/logo.png') }}",
+  "logo": "{{ asset('logo.png') }}",
   "description": "Internet service provider supplying home and business internet with fast, reliable connectivity.",
   "contactPoint": {
     "@type": "ContactPoint",
@@ -81,72 +81,43 @@
 
     <h3 class="packages-subtitle">Home Internet</h3>
     <div class="plans-grid plans-grid--home">
-      <div class="plan-card plan-card--home">
-        <h3>Starter</h3>
-        <p class="price-tag">KES 4,999<small>/mo</small></p>
+      @forelse($homePlans as $plan)
+      <div class="plan-card plan-card--home {{ $plan->is_highlighted ? 'plan-card--featured' : '' }}">
+        @if($plan->badge)<span class="plan-card__badge">{{ $plan->badge }}</span>@endif
+        <h3>{{ $plan->name }}</h3>
+        <p class="price-tag">{{ $plan->currency }} {{ number_format($plan->price) }}<small>/mo</small></p>
+        @if($plan->speed)<p class="plan-card__speed">{{ $plan->speed }}</p>@endif
         <ul>
-          <li>Up to 100 Mbps</li>
-          <li>Unlimited data</li>
-          <li>Free modem rental</li>
+          @foreach($plan->features_list as $feature)
+          <li>{{ $feature }}</li>
+          @endforeach
         </ul>
-        <a href="#" class="btn btn-secondary js-open-apply-modal">Apply</a>
+        <a href="#" class="btn {{ $plan->is_highlighted ? 'btn-primary' : 'btn-secondary' }} js-open-apply-modal">Apply</a>
       </div>
-      <div class="plan-card plan-card--home plan-card--featured">
-        <span class="plan-card__badge">Popular</span>
-        <h3>Essential</h3>
-        <p class="price-tag">KES 6,999<small>/mo</small></p>
-        <ul>
-          <li>Up to 300 Mbps</li>
-          <li>Unlimited data</li>
-          <li>Free modem + WiFi router</li>
-        </ul>
-        <a href="#" class="btn btn-primary js-open-apply-modal">Apply</a>
-      </div>
-      <div class="plan-card plan-card--home">
-        <h3>Premium</h3>
-        <p class="price-tag">KES 9,999<small>/mo</small></p>
-        <ul>
-          <li>Up to 1 Gbps</li>
-          <li>Unlimited data</li>
-          <li>Premium WiFi equipment</li>
-        </ul>
-        <a href="#" class="btn btn-secondary js-open-apply-modal">Apply</a>
-      </div>
+      @empty
+      <p class="packages-empty">Home plans coming soon. <a href="{{ route('contact') }}#apply">Contact us</a> for details.</p>
+      @endforelse
     </div>
     <p class="packages-link"><a href="{{ route('home-internet') }}">View all home internet plans →</a></p>
 
     <h3 class="packages-subtitle">Business Internet</h3>
     <div class="plans-grid plans-grid--home">
-      <div class="plan-card plan-card--business">
-        <h3>Business Starter</h3>
-        <p class="price-tag">KES 12,999<small>/mo</small></p>
+      @forelse($businessPlans as $plan)
+      <div class="plan-card plan-card--business {{ $plan->is_highlighted ? 'plan-card--featured' : '' }}">
+        @if($plan->badge)<span class="plan-card__badge">{{ $plan->badge }}</span>@endif
+        <h3>{{ $plan->name }}</h3>
+        <p class="price-tag">{{ $plan->currency }} {{ number_format($plan->price) }}<small>/mo</small></p>
+        @if($plan->speed)<p class="plan-card__speed">{{ $plan->speed }}</p>@endif
         <ul>
-          <li>100 Mbps dedicated</li>
-          <li>99.9% uptime SLA</li>
-          <li>Dedicated support</li>
+          @foreach($plan->features_list as $feature)
+          <li>{{ $feature }}</li>
+          @endforeach
         </ul>
-        <a href="#" class="btn btn-secondary js-open-apply-modal">Apply</a>
+        <a href="#" class="btn {{ $plan->is_highlighted ? 'btn-primary' : 'btn-secondary' }} js-open-apply-modal">Apply</a>
       </div>
-      <div class="plan-card plan-card--business">
-        <h3>Business Plus</h3>
-        <p class="price-tag">KES 29,999<small>/mo</small></p>
-        <ul>
-          <li>500 Mbps dedicated</li>
-          <li>99.9% uptime SLA</li>
-          <li>Priority support</li>
-        </ul>
-        <a href="#" class="btn btn-secondary js-open-apply-modal">Apply</a>
-      </div>
-      <div class="plan-card plan-card--business">
-        <h3>Business Pro</h3>
-        <p class="price-tag">KES 49,999<small>/mo</small></p>
-        <ul>
-          <li>1 Gbps dedicated</li>
-          <li>99.9% uptime SLA</li>
-          <li>Proactive monitoring</li>
-        </ul>
-        <a href="#" class="btn btn-primary js-open-apply-modal">Apply</a>
-      </div>
+      @empty
+      <p class="packages-empty">Business plans coming soon. <a href="{{ route('contact') }}#apply">Contact us</a> for details.</p>
+      @endforelse
     </div>
     <p class="packages-link"><a href="{{ route('business-internet') }}">View all business internet plans →</a></p>
   </div>
@@ -155,12 +126,16 @@
 <section class="section section--vibrant coverage-section scroll-animate" id="coverage">
   <div class="container">
     <h2 class="section-title section-title--gradient">Our Coverage</h2>
-    <p class="section-subtitle">We serve Nairobi and environs. Hover over the map to see covered areas.</p>
+    <p class="section-subtitle">We serve Nairobi and environs.@if(empty(trim($siteSettings['coverage_map_embed_url'] ?? ''))) Hover over the map to see covered areas.@endif</p>
     <div class="coverage-map-wrap">
-      <div id="coverage-map" class="coverage-map" aria-label="Coverage map of Nairobi and environs"></div>
-      <div class="coverage-legend">
-        <span class="coverage-legend__item"><i class="coverage-legend__dot"></i> Covered</span>
-      </div>
+      @if(!empty(trim($siteSettings['coverage_map_embed_url'] ?? '')))
+        <iframe class="coverage-map-iframe" src="{{ $siteSettings['coverage_map_embed_url'] }}" width="100%" height="450" style="border:0; border-radius: var(--radius, 8px);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Coverage area map"></iframe>
+      @else
+        <div id="coverage-map" class="coverage-map" aria-label="Coverage map of Nairobi and environs" data-center="{{ $siteSettings['coverage_map_center'] ?? '-1.286389,36.817223' }}" data-zoom="{{ $siteSettings['coverage_map_zoom'] ?? '11' }}" data-zones-url="{{ route('coverage.zones') }}"></div>
+        <div class="coverage-legend">
+          <span class="coverage-legend__item"><i class="coverage-legend__dot"></i> Covered</span>
+        </div>
+      @endif
     </div>
   </div>
 </section>
@@ -242,10 +217,16 @@
     var mapEl = document.getElementById('coverage-map');
     if (!mapEl || typeof L === 'undefined') return;
 
-    var nairobi = [-1.286389, 36.817223];
+    var centerStr = (mapEl.getAttribute('data-center') || '-1.286389,36.817223').trim();
+    var parts = centerStr.split(/[\s,]+/);
+    var center = parts.length >= 2 ? [parseFloat(parts[0]), parseFloat(parts[1])] : [-1.286389, 36.817223];
+    var zoom = parseInt(mapEl.getAttribute('data-zoom') || '11', 10) || 11;
+    if (isNaN(zoom) || zoom < 1) zoom = 11;
+    if (zoom > 18) zoom = 18;
+
     var map = L.map('coverage-map', {
-      center: nairobi,
-      zoom: 11,
+      center: center,
+      zoom: zoom,
       zoomControl: true,
       scrollWheelZoom: true
     });
@@ -260,7 +241,7 @@
     var coverageFill = 'rgba(0, 102, 204, 0.35)';
     var hoverFill = 'rgba(0, 163, 224, 0.55)';
 
-    var zones = [
+    var defaultZones = [
       { name: 'Central Nairobi', coords: [[-1.278, 36.808], [-1.278, 36.825], [-1.295, 36.825], [-1.295, 36.808]] },
       { name: 'Westlands', coords: [[-1.258, 36.798], [-1.258, 36.815], [-1.272, 36.815], [-1.272, 36.798]] },
       { name: 'Kilimani', coords: [[-1.288, 36.782], [-1.288, 36.798], [-1.305, 36.798], [-1.305, 36.782]] },
@@ -271,7 +252,11 @@
       { name: 'Runda / Gigiri', coords: [[-1.238, 36.808], [-1.238, 36.828], [-1.255, 36.828], [-1.255, 36.808]] }
     ];
 
-    zones.forEach(function(zone) {
+    function drawZones(zones) {
+      if (!zones || !Array.isArray(zones)) zones = defaultZones;
+      zones = zones.filter(function(z) { return z && z.coords && z.coords.length >= 3; });
+      if (zones.length === 0) zones = defaultZones;
+      zones.forEach(function(zone) {
       var layer = L.polygon(zone.coords, {
         color: coverageColor,
         weight: 2,
@@ -295,6 +280,17 @@
         this.setStyle({ fillOpacity: 0.35, weight: 2 });
       });
     });
+    }
+
+    var zonesUrl = mapEl.getAttribute('data-zones-url');
+    if (zonesUrl) {
+      fetch(zonesUrl, { headers: { 'Accept': 'application/json' } })
+        .then(function(r) { return r.ok ? r.json() : []; })
+        .then(function(zones) { drawZones(zones); })
+        .catch(function() { drawZones(defaultZones); });
+    } else {
+      drawZones(defaultZones);
+    }
   }
 
   if (document.readyState === 'loading') {

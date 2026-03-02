@@ -39,6 +39,9 @@
                     <a href="{{ route('admin.media.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg {{ request()->routeIs('admin.media.*') ? 'bg-blue-600 text-white' : 'hover:bg-gray-800' }}">
                         <span>🖼️</span> Media Manager
                     </a>
+                    <a href="{{ route('admin.coverage.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg {{ request()->routeIs('admin.coverage.*') ? 'bg-blue-600 text-white' : 'hover:bg-gray-800' }}">
+                        <span>🗺️</span> Coverage
+                    </a>
                     <a href="{{ route('admin.settings.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg {{ request()->routeIs('admin.settings.*') ? 'bg-blue-600 text-white' : 'hover:bg-gray-800' }}">
                         <span>⚙️</span> Site Settings
                     </a>
