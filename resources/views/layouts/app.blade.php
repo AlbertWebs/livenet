@@ -17,6 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+  @vite(['resources/css/site.css', 'resources/js/site.js'])
   @stack('styles')
   @yield('jsonld')
 <style>
@@ -112,6 +113,7 @@ s0.parentNode.insertBefore(s1,s0);
   </main>
 
   @include('partials.footer')
+  @include('partials.bottom-nav')
   @include('partials.apply-modal')
 
   <a href="#top" class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">
@@ -148,127 +150,6 @@ s0.parentNode.insertBefore(s1,s0);
         });
       }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
       els.forEach(function(el) { io.observe(el); });
-    })();
-
-    (function() {
-      var modal = document.getElementById('apply-modal');
-      var form = document.getElementById('apply-connection-form');
-      var backdrop = document.getElementById('apply-modal-backdrop');
-      var closeBtn = document.getElementById('apply-modal-close');
-      var errorEl = document.getElementById('apply-modal-error');
-      var successEl = document.getElementById('apply-modal-success');
-      var num1Input = document.getElementById('apply-challenge-num1');
-      var num2Input = document.getElementById('apply-challenge-num2');
-      var num1Display = document.getElementById('apply-challenge-num1-display');
-      var num2Display = document.getElementById('apply-challenge-num2-display');
-      var answerInput = document.getElementById('apply-challenge-answer');
-      var submitBtn = document.getElementById('apply-submit-btn');
-
-      function randomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
-
-      function setChallenge() {
-        var n1 = randomInt(1, 15);
-        var n2 = randomInt(1, 15);
-        num1Input.value = n1;
-        num2Input.value = n2;
-        if (num1Display) num1Display.textContent = n1;
-        if (num2Display) num2Display.textContent = n2;
-        if (answerInput) answerInput.value = '';
-      }
-
-      function openModal() {
-        if (!modal) return;
-        setChallenge();
-        errorEl.hidden = true;
-        successEl.hidden = true;
-        modal.classList.add('is-open');
-        modal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
-        if (answerInput) answerInput.focus();
-      }
-
-      function closeModal() {
-        if (!modal) return;
-        modal.classList.remove('is-open');
-        modal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-      }
-
-      function showError(msg) {
-        errorEl.textContent = msg;
-        errorEl.hidden = false;
-        successEl.hidden = true;
-      }
-
-      function showSuccess(msg) {
-        successEl.textContent = msg;
-        successEl.hidden = false;
-        errorEl.hidden = true;
-      }
-
-      document.querySelectorAll('.btn-apply, .js-open-apply-modal, a[href*="#apply"]').forEach(function(el) {
-        el.addEventListener('click', function(e) {
-          if (el.getAttribute('href') === '#' || (el.getAttribute('href') && el.getAttribute('href').indexOf('#apply') !== -1)) {
-            e.preventDefault();
-          }
-          openModal();
-        });
-      });
-
-      if (backdrop) backdrop.addEventListener('click', closeModal);
-      if (closeBtn) closeBtn.addEventListener('click', closeModal);
-
-      modal && modal.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') closeModal();
-      });
-
-      if (form) {
-        form.addEventListener('submit', function(e) {
-          e.preventDefault();
-          var expected = parseInt(num1Input.value, 10) + parseInt(num2Input.value, 10);
-          var answer = parseInt(answerInput.value, 10);
-          if (answer !== expected) {
-            showError('Please solve the arithmetic question correctly.');
-            return;
-          }
-          var submitBtnLabel = submitBtn.innerHTML;
-          submitBtn.disabled = true;
-          submitBtn.innerHTML = '<span class="apply-modal__submit-spinner" aria-hidden="true"></span> Submitting…';
-          submitBtn.setAttribute('aria-busy', 'true');
-          errorEl.hidden = true;
-          var action = form.getAttribute('action');
-          var body = new FormData(form);
-          fetch(action, {
-            method: 'POST',
-            body: body,
-            headers: {
-              'X-Requested-With': 'XMLHttpRequest',
-              'Accept': 'application/json'
-            }
-          })
-            .then(function(r) { return r.json().then(function(data) { return { ok: r.ok, data: data }; }); })
-            .then(function(result) {
-              if (result.ok && result.data.success) {
-                showSuccess(result.data.message || 'Thank you! Your application has been submitted.');
-                form.reset();
-                setChallenge();
-                setTimeout(closeModal, 2000);
-              } else {
-                showError(result.data.message || (result.data.errors ? Object.values(result.data.errors).flat().join(' ') : 'Something went wrong. Please try again.'));
-              }
-            })
-            .catch(function() {
-              showError('Network error. Please try again.');
-            })
-            .finally(function() {
-              submitBtn.disabled = false;
-              submitBtn.innerHTML = submitBtnLabel;
-              submitBtn.removeAttribute('aria-busy');
-            });
-        });
-      }
     })();
   </script>
   @stack('scripts')

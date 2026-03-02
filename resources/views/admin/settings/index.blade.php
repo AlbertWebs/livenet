@@ -66,6 +66,36 @@
             </div>
         </section>
 
+        {{-- Homepage stats (testimonials section) --}}
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/80">
+                <h2 class="text-sm font-semibold text-gray-900 tracking-wide uppercase">Homepage stats</h2>
+                <p class="text-xs text-gray-500 mt-0.5">Numbers shown in the testimonials section (e.g. 99.9% Uptime SLA, 50K+ Happy Customers, 24/7 Support)</p>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Stat 1 – Number</label>
+                        <input type="text" name="stat_1_number" value="{{ old('stat_1_number', $settings['stat_1_number'] ?? '99.9%') }}" placeholder="99.9%" class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5 mt-2">Stat 1 – Label</label>
+                        <input type="text" name="stat_1_label" value="{{ old('stat_1_label', $settings['stat_1_label'] ?? 'Uptime SLA') }}" placeholder="Uptime SLA" class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Stat 2 – Number</label>
+                        <input type="text" name="stat_2_number" value="{{ old('stat_2_number', $settings['stat_2_number'] ?? '50K+') }}" placeholder="50K+" class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5 mt-2">Stat 2 – Label</label>
+                        <input type="text" name="stat_2_label" value="{{ old('stat_2_label', $settings['stat_2_label'] ?? 'Happy Customers') }}" placeholder="Happy Customers" class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5">Stat 3 – Number</label>
+                        <input type="text" name="stat_3_number" value="{{ old('stat_3_number', $settings['stat_3_number'] ?? '24/7') }}" placeholder="24/7" class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
+                        <label class="block text-sm font-medium text-gray-700 mb-1.5 mt-2">Stat 3 – Label</label>
+                        <input type="text" name="stat_3_label" value="{{ old('stat_3_label', $settings['stat_3_label'] ?? 'Support') }}" placeholder="Support" class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition">
+                    </div>
+                </div>
+            </div>
+        </section>
+
         {{-- Contact --}}
         <section class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/80">

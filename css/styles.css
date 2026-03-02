@@ -823,6 +823,121 @@ a:hover {
   height: 20px;
 }
 
+/* Bottom nav - mobile only */
+.bottom-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  main {
+    padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .footer {
+    padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9998;
+    pointer-events: auto;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 4px 2px calc(4px + env(safe-area-inset-bottom, 0px));
+    padding-left: max(2px, env(safe-area-inset-left, 0));
+    padding-right: max(2px, env(safe-area-inset-right, 0));
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.06);
+    align-items: stretch;
+    justify-content: space-around;
+    min-height: 44px;
+    flex-shrink: 0;
+  }
+
+  .bottom-nav__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    padding: 4px 2px;
+    min-width: 0;
+    flex: 1;
+    max-width: 72px;
+    color: var(--text-muted);
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.2;
+    transition: color var(--transition), background var(--transition);
+    -webkit-tap-highlight-color: transparent;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 6px;
+    touch-action: manipulation;
+    pointer-events: auto;
+  }
+
+  .bottom-nav__link:hover,
+  .bottom-nav__link:focus {
+    color: var(--primary);
+    background: rgba(0, 102, 204, 0.06);
+  }
+
+  .bottom-nav__link--active {
+    color: var(--primary);
+  }
+
+  .bottom-nav__link--apply {
+    color: var(--primary);
+  }
+
+  .bottom-nav__link--apply.bottom-nav__link--active {
+    color: var(--primary-dark);
+  }
+
+  .bottom-nav__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .bottom-nav__icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .bottom-nav__label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;
+    min-height: 1.2em;
+    color: inherit;
+  }
+}
+
+@media (min-width: 769px) {
+  .bottom-nav {
+    display: none !important;
+  }
+}
+
+/* Back to top: sit above bottom nav on mobile */
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: calc(44px + env(safe-area-inset-bottom, 0px) + 0.5rem);
+  }
+}
+
 /* Page header (inner pages) */
 .page-hero {
   background: linear-gradient(135deg, var(--bg-hero) 0%, #0d2137 100%);

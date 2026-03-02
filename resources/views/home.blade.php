@@ -189,9 +189,9 @@
       </div>
     </div>
     <div class="stats-row stats-row--vibrant">
-      <div class="stat stat--vibrant"><span class="number">99.9%</span><span class="label">Uptime SLA</span></div>
-      <div class="stat stat--vibrant"><span class="number">50K+</span><span class="label">Happy Customers</span></div>
-      <div class="stat stat--vibrant"><span class="number">24/7</span><span class="label">Support</span></div>
+      <div class="stat stat--vibrant"><span class="number">{{ $siteSettings['stat_1_number'] ?? '99.9%' }}</span><span class="label">{{ $siteSettings['stat_1_label'] ?? 'Uptime SLA' }}</span></div>
+      <div class="stat stat--vibrant"><span class="number">{{ $siteSettings['stat_2_number'] ?? '50K+' }}</span><span class="label">{{ $siteSettings['stat_2_label'] ?? 'Happy Customers' }}</span></div>
+      <div class="stat stat--vibrant"><span class="number">{{ $siteSettings['stat_3_number'] ?? '24/7' }}</span><span class="label">{{ $siteSettings['stat_3_label'] ?? 'Support' }}</span></div>
     </div>
   </div>
 </section>
