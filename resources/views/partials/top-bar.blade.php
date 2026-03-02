@@ -10,7 +10,7 @@
     <a href="{{ $telHref }}" class="top-bar-link"><span class="top-bar-icon" aria-hidden="true">📞</span> {{ $phone }}</a>
     <span class="separator">|</span>
     <a href="mailto:{{ $email }}" class="top-bar-link"><span class="top-bar-icon" aria-hidden="true">✉</span> {{ $email }}</a>
-    <span class="separator">|</span>
-    <span class="top-bar-location"><span class="top-bar-icon" aria-hidden="true">📍</span> {{ $address }}</span>
+    <span class="separator top-bar__desktop-only">|</span>
+    <span class="top-bar-location top-bar__desktop-only"><span class="top-bar-icon" aria-hidden="true">📍</span> {{ $address }}</span>
   </div>
 </div>

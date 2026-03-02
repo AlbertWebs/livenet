@@ -2232,6 +2232,10 @@ a:hover {
     display: none;
   }
 
+  .top-bar .top-bar__desktop-only {
+    display: none;
+  }
+
   .top-bar-link,
   .top-bar-location {
     padding: 4px 6px;
