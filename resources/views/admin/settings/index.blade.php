@@ -96,6 +96,65 @@
             </div>
         </section>
 
+        {{-- Intro section (after hero) --}}
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/80">
+                <h2 class="text-sm font-semibold text-gray-900 tracking-wide uppercase">Intro section (after hero)</h2>
+                <p class="text-xs text-gray-500 mt-0.5">Paragraph(s) describing Livenet Solutions, shown next to Decorative image 1. Use line breaks for multiple paragraphs.</p>
+            </div>
+            <div class="p-6 space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1.5">About Livenet Solutions</label>
+                    <textarea name="home_intro_text" rows="5" placeholder="e.g. Livenet Solutions is a leading internet service provider in Nairobi, delivering fast, reliable connectivity for homes and businesses. We build and maintain our own network so we can offer consistent speeds, transparent pricing, and local support when you need it." class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition @error('home_intro_text') border-red-300 @enderror">{{ old('home_intro_text', $settings['home_intro_text'] ?? '') }}</textarea>
+                    @error('home_intro_text')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                    <p class="mt-1 text-xs text-gray-500">Max 2000 characters. Shown in the block below the hero; the image is set under Homepage images → Decorative image 1.</p>
+                </div>
+            </div>
+        </section>
+
+        {{-- Homepage images --}}
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/80">
+                <h2 class="text-sm font-semibold text-gray-900 tracking-wide uppercase">Homepage images</h2>
+                <p class="text-xs text-gray-500 mt-0.5">Images for the landing page. Leave empty to show placeholders.</p>
+            </div>
+            <div class="p-6 space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1.5">Internet Services section (right side image)</label>
+                    <p class="text-xs text-gray-500 mb-2">Shown beside “Home Internet” and “Business Internet” cards. Same height as the two cards.</p>
+                    @if(!empty($settings['home_services_section_image']))
+                        <div class="flex items-center gap-4 mb-3 flex-wrap">
+                            <img src="{{ asset('storage/' . $settings['home_services_section_image']) }}" alt="Current" class="h-20 w-auto object-contain rounded-lg border border-gray-200 bg-gray-50 p-1">
+                            <label class="inline-flex items-center gap-2 cursor-pointer"><input type="checkbox" name="remove_home_services_section_image" value="1" class="rounded border-gray-300 text-red-600 focus:ring-red-500"> <span class="text-sm text-red-600 font-medium">Remove</span></label>
+                        </div>
+                    @endif
+                    <input type="file" name="home_services_section_image" accept="image/*" class="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1.5">Decorative image 1</label>
+                    <p class="text-xs text-gray-500 mb-2">Shown in the intro section (after hero) next to the “About Livenet Solutions” text.</p>
+                    @if(!empty($settings['home_decor_image_1']))
+                        <div class="flex items-center gap-4 mb-3 flex-wrap">
+                            <img src="{{ asset('storage/' . $settings['home_decor_image_1']) }}" alt="Current" class="h-20 w-auto object-contain rounded-lg border border-gray-200 bg-gray-50 p-1">
+                            <label class="inline-flex items-center gap-2 cursor-pointer"><input type="checkbox" name="remove_home_decor_image_1" value="1" class="rounded border-gray-300 text-red-600 focus:ring-red-500"> <span class="text-sm text-red-600 font-medium">Remove</span></label>
+                        </div>
+                    @endif
+                    <input type="file" name="home_decor_image_1" accept="image/*" class="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1.5">Decorative image 2</label>
+                    <p class="text-xs text-gray-500 mb-2">Second optional image for the homepage.</p>
+                    @if(!empty($settings['home_decor_image_2']))
+                        <div class="flex items-center gap-4 mb-3 flex-wrap">
+                            <img src="{{ asset('storage/' . $settings['home_decor_image_2']) }}" alt="Current" class="h-20 w-auto object-contain rounded-lg border border-gray-200 bg-gray-50 p-1">
+                            <label class="inline-flex items-center gap-2 cursor-pointer"><input type="checkbox" name="remove_home_decor_image_2" value="1" class="rounded border-gray-300 text-red-600 focus:ring-red-500"> <span class="text-sm text-red-600 font-medium">Remove</span></label>
+                        </div>
+                    @endif
+                    <input type="file" name="home_decor_image_2" accept="image/*" class="block w-full text-sm text-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
+                </div>
+            </div>
+        </section>
+
         {{-- Contact --}}
         <section class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
             <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/80">

@@ -8,7 +8,7 @@
     $featuresText = is_array($plan->features_list ?? []) ? implode("\n", $plan->features_list) : (string) ($plan->features ?? '');
 @endphp
 <div class="bg-white rounded-xl shadow p-6 max-w-2xl">
-    <form action="{{ route('admin.internet-plans.update', $plan) }}" method="POST" class="space-y-4">
+    <form action="{{ route('admin.internet-plans.update', $plan) }}" method="POST" enctype="multipart/form-data" class="space-y-4">
         @csrf
         @method('PUT')
         <div><label class="block text-sm font-medium text-gray-700 mb-1">Type</label><select name="type" class="w-full rounded-lg border border-gray-300 px-3 py-2"><option value="home" {{ $plan->type === 'home' ? 'selected' : '' }}>Home</option><option value="business" {{ $plan->type === 'business' ? 'selected' : '' }}>Business</option></select></div>
@@ -19,6 +19,17 @@
         <div><label class="block text-sm font-medium text-gray-700 mb-1">Features (one per line)</label><textarea name="features" rows="6" class="w-full rounded-lg border border-gray-300 px-3 py-2">{{ old('features', $featuresText) }}</textarea></div>
         <div><label class="flex items-center"><input type="checkbox" name="is_highlighted" value="1" {{ old('is_highlighted', $plan->is_highlighted) ? 'checked' : '' }} class="rounded"> <span class="ml-2">Highlighted</span></label></div>
         <div><label class="block text-sm font-medium text-gray-700 mb-1">Badge</label><input type="text" name="badge" value="{{ old('badge', $plan->badge) }}" class="w-full rounded-lg border border-gray-300 px-3 py-2"></div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Plan image</label>
+            @if($plan->image)
+                <div class="flex items-center gap-3 mb-2">
+                    <img src="{{ asset('storage/' . $plan->image) }}" alt="" class="h-16 w-auto object-contain rounded border border-gray-200">
+                    <label class="inline-flex items-center gap-2 cursor-pointer"><input type="checkbox" name="remove_image" value="1" class="rounded border-gray-300 text-red-600"> <span class="text-sm text-red-600">Remove image</span></label>
+                </div>
+            @endif
+            <input type="file" name="image" accept="image/*" class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2">
+        </div>
+        <div><label class="flex items-center"><input type="checkbox" name="show_image" value="1" {{ old('show_image', $plan->show_image ?? true) ? 'checked' : '' }} class="rounded"> <span class="ml-2">Show image on homepage</span></label></div>
         <div><label class="block text-sm font-medium text-gray-700 mb-1">Sort order</label><input type="number" name="sort_order" value="{{ old('sort_order', $plan->sort_order) }}" class="w-full rounded-lg border border-gray-300 px-3 py-2"></div>
         <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">Update Plan</button>
     </form>

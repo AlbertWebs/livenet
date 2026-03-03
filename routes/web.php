@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\CoverageController;
 use App\Http\Controllers\Admin\ConnectionApplicationController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -55,9 +56,10 @@ Route::get('/coverage-zones.json', function () {
     return response()->json($zones);
 })->name('coverage.zones');
 
-Route::view('/', 'home')->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::view('/home-internet', 'home-internet')->name('home-internet');
 Route::view('/business-internet', 'business-internet')->name('business-internet');
+Route::view('/our-coverage', 'our-coverage')->name('our-coverage');
 Route::view('/articles', 'articles')->name('articles');
 Route::view('/about', 'about')->name('about');
 Route::get('/contact', fn () => view('contact'))->name('contact');

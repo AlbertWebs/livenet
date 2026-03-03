@@ -4,17 +4,118 @@
 @section('page_title', 'New Article')
 
 @section('content')
-<div class="bg-white rounded-xl shadow p-6 max-w-2xl">
-    <form action="{{ route('admin.articles.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+<div class="max-w-3xl mx-auto space-y-6">
+    <div class="flex items-center justify-between gap-4">
+        <a href="{{ route('admin.articles.index') }}" class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            Back to articles
+        </a>
+    </div>
+
+    <form action="{{ route('admin.articles.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6" id="article-form">
         @csrf
-        <div><label class="block text-sm font-medium text-gray-700 mb-1">Title *</label><input type="text" name="title" value="{{ old('title') }}" required class="w-full rounded-lg border px-3 py-2"></div>
-        <div><label class="block text-sm font-medium text-gray-700 mb-1">Slug</label><input type="text" name="slug" value="{{ old('slug') }}" class="w-full rounded-lg border px-3 py-2"></div>
-        <div><label class="block text-sm font-medium text-gray-700 mb-1">Excerpt</label><textarea name="excerpt" rows="2" class="w-full rounded-lg border px-3 py-2">{{ old('excerpt') }}</textarea></div>
-        <div><label class="block text-sm font-medium text-gray-700 mb-1">Content</label><textarea name="content" rows="6" class="w-full rounded-lg border px-3 py-2">{{ old('content') }}</textarea></div>
-        <div><label class="block text-sm font-medium text-gray-700 mb-1">Featured image</label><input type="file" name="featured_image" accept="image/*" class="w-full text-sm"></div>
-        <div><label class="block text-sm font-medium text-gray-700 mb-1">Category</label><input type="text" name="category" value="{{ old('category') }}" class="w-full rounded-lg border px-3 py-2"></div>
-        <div><label class="block text-sm font-medium text-gray-700 mb-1">Status</label><select name="status" class="w-full rounded-lg border px-3 py-2"><option value="published">Published</option><option value="draft">Draft</option></select></div>
-        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">Create</button>
+
+        {{-- Main content --}}
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/80">
+                <h2 class="text-sm font-semibold text-gray-900 tracking-wide uppercase">Article</h2>
+                <p class="text-xs text-gray-500 mt-0.5">Title, excerpt, and body content</p>
+            </div>
+            <div class="p-6 space-y-5">
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700 mb-1.5">Title <span class="text-red-500">*</span></label>
+                    <input id="title" type="text" name="title" value="{{ old('title') }}" required
+                        class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition @error('title') border-red-300 @enderror"
+                        placeholder="Article title">
+                    @error('title')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                </div>
+                <div>
+                    <label for="slug" class="block text-sm font-medium text-gray-700 mb-1.5">Slug</label>
+                    <input id="slug" type="text" name="slug" value="{{ old('slug') }}"
+                        class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition @error('slug') border-red-300 @enderror"
+                        placeholder="url-friendly-slug (leave empty to auto-generate from title)">
+                    @error('slug')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                </div>
+                <div>
+                    <label for="excerpt" class="block text-sm font-medium text-gray-700 mb-1.5">Excerpt</label>
+                    <textarea id="excerpt" name="excerpt" rows="2"
+                        class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition @error('excerpt') border-red-300 @enderror"
+                        placeholder="Short summary for listings">{{ old('excerpt') }}</textarea>
+                    @error('excerpt')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                </div>
+                <div>
+                    <label for="content" class="block text-sm font-medium text-gray-700 mb-1.5">Content</label>
+                    <textarea id="content" name="content" rows="12"
+                        class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition @error('content') border-red-300 @enderror"
+                        placeholder="Article body (rich text)">{{ old('content') }}</textarea>
+                    @error('content')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                </div>
+            </div>
+        </section>
+
+        {{-- Featured image & meta --}}
+        <section class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-100 bg-gray-50/80">
+                <h2 class="text-sm font-semibold text-gray-900 tracking-wide uppercase">Featured image & settings</h2>
+                <p class="text-xs text-gray-500 mt-0.5">Image and publishing options</p>
+            </div>
+            <div class="p-6 space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1.5">Featured image</label>
+                    <div class="flex items-center gap-3">
+                        <label class="cursor-pointer inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-sm font-medium text-gray-700 hover:bg-gray-100 transition">
+                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                            Choose image
+                            <input type="file" name="featured_image" accept="image/*" class="sr-only">
+                        </label>
+                        <span class="text-xs text-gray-500">PNG, JPG, max 2MB</span>
+                    </div>
+                </div>
+                <div>
+                    <label for="category" class="block text-sm font-medium text-gray-700 mb-1.5">Category</label>
+                    <input id="category" type="text" name="category" value="{{ old('category') }}"
+                        class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition @error('category') border-red-300 @enderror"
+                        placeholder="e.g. News, Tips">
+                    @error('category')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                </div>
+                <div>
+                    <label for="status" class="block text-sm font-medium text-gray-700 mb-1.5">Status</label>
+                    <select id="status" name="status"
+                        class="w-full rounded-xl border border-gray-200 px-4 py-2.5 text-gray-900 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition @error('status') border-red-300 @enderror">
+                        <option value="draft" {{ old('status', 'draft') === 'draft' ? 'selected' : '' }}>Draft</option>
+                        <option value="published" {{ old('status') === 'published' ? 'selected' : '' }}>Published</option>
+                    </select>
+                    @error('status')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                </div>
+            </div>
+        </section>
+
+        <div class="flex flex-wrap items-center gap-3">
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-5 rounded-xl shadow-sm transition">
+                Create article
+            </button>
+            <a href="{{ route('admin.articles.index') }}" class="text-gray-600 hover:text-gray-900 font-medium text-sm">Cancel</a>
+        </div>
     </form>
 </div>
+
+@push('scripts')
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('content') && typeof CKEDITOR !== 'undefined') {
+        CKEDITOR.replace('content', {
+            height: 320,
+            removePlugins: 'elementspath',
+            resize_enabled: true
+        });
+    }
+});
+document.getElementById('article-form').addEventListener('submit', function() {
+    if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances.content) {
+        CKEDITOR.instances.content.updateElement();
+    }
+});
+</script>
+@endpush
 @endsection

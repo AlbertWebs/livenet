@@ -13,11 +13,10 @@
     </button>
     <nav class="nav-center">
       <ul class="nav-menu" id="nav-menu">
-        <!-- <li><a href="{{ route('home') }}">Home</a></li> -->
-        <li><a href="{{ route('home-internet') }}">Home Internet</a></li>
-        <li><a href="{{ route('business-internet') }}">Business Internet</a></li>
-        
-        <li><a href="{{ route('contact') }}">Contact Us</a></li>
+        <li><a href="{{ route('home-internet') }}" class="{{ request()->routeIs('home-internet') ? 'nav-menu__link--active' : '' }}">Home Internet</a></li>
+        <li><a href="{{ route('business-internet') }}" class="{{ request()->routeIs('business-internet') ? 'nav-menu__link--active' : '' }}">Business Internet</a></li>
+        <li><a href="{{ route('our-coverage') }}" class="{{ request()->routeIs('our-coverage') ? 'nav-menu__link--active' : '' }}">Our Coverage</a></li>
+        <li><a href="{{ route('contact') }}" class="{{ request()->routeIs('contact') ? 'nav-menu__link--active' : '' }}">Contact Us</a></li>
       </ul>
     </nav>
     <a href="#" class="btn btn-primary btn-apply js-open-apply-modal">

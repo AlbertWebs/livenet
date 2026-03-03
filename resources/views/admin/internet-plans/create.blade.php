@@ -5,7 +5,7 @@
 
 @section('content')
 <div class="bg-white rounded-xl shadow p-6 max-w-2xl">
-    <form action="{{ route('admin.internet-plans.store') }}" method="POST" class="space-y-4">
+    <form action="{{ route('admin.internet-plans.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
         @csrf
         <input type="hidden" name="type" value="{{ $type ?? 'home' }}">
         <div><label class="block text-sm font-medium text-gray-700 mb-1">Plan name *</label><input type="text" name="name" value="{{ old('name') }}" required class="w-full rounded-lg border border-gray-300 px-3 py-2"></div>
@@ -15,6 +15,12 @@
         <div><label class="block text-sm font-medium text-gray-700 mb-1">Features (one per line)</label><textarea name="features" rows="6" class="w-full rounded-lg border border-gray-300 px-3 py-2">{{ old('features') }}</textarea></div>
         <div><label class="flex items-center"><input type="checkbox" name="is_highlighted" value="1" class="rounded"> <span class="ml-2">Highlighted</span></label></div>
         <div><label class="block text-sm font-medium text-gray-700 mb-1">Badge</label><input type="text" name="badge" value="{{ old('badge') }}" class="w-full rounded-lg border border-gray-300 px-3 py-2"></div>
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Plan image</label>
+            <p class="text-xs text-gray-500 mb-1">Shown on the homepage package card when “Show image” is checked.</p>
+            <input type="file" name="image" accept="image/*" class="w-full text-sm border border-gray-300 rounded-lg px-3 py-2">
+        </div>
+        <div><label class="flex items-center"><input type="checkbox" name="show_image" value="1" {{ old('show_image', true) ? 'checked' : '' }} class="rounded"> <span class="ml-2">Show image on homepage</span></label></div>
         <div><label class="block text-sm font-medium text-gray-700 mb-1">Sort order</label><input type="number" name="sort_order" value="{{ old('sort_order', 0) }}" class="w-full rounded-lg border border-gray-300 px-3 py-2"></div>
         <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">Create Plan</button>
     </form>

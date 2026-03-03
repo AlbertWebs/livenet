@@ -62,7 +62,10 @@ class ArticleController extends Controller
             'status' => 'required|in:published,draft',
             'published_at' => 'nullable|date',
         ]);
-        if ($request->hasFile('featured_image')) {
+        if ($request->boolean('remove_featured_image') && $article->featured_image) {
+            Storage::disk('public')->delete($article->featured_image);
+            $v['featured_image'] = null;
+        } elseif ($request->hasFile('featured_image')) {
             if ($article->featured_image) {
                 Storage::disk('public')->delete($article->featured_image);
             }

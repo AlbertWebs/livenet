@@ -51,5 +51,12 @@ class AppServiceProvider extends ServiceProvider
             }
             $view->with('coverageZonesForMap', $coverageZonesForMap);
         });
+
+        View::composer('our-coverage', function ($view) {
+            $coverageAreas = Schema::hasTable('coverage_areas')
+                ? CoverageArea::orderBy('sort_order')->get()
+                : collect();
+            $view->with('coverageAreas', $coverageAreas);
+        });
     }
 }

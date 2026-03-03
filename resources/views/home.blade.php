@@ -33,20 +33,20 @@
 {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "name": {{ json_encode($siteName) }},
-  "url": {{ json_encode(url('/')) }},
-  "logo": {{ json_encode(url(!empty($siteSettings['logo']) ? asset('storage/' . $siteSettings['logo']) : asset('logo.png'))) }},
-  "description": {{ json_encode($seoDesc) }},
+  "name": {!! json_encode($siteName) !!},
+  "url": {!! json_encode(url('/')) !!},
+  "logo": {!! json_encode(url(!empty($siteSettings['logo']) ? asset('storage/' . $siteSettings['logo']) : asset('logo.png'))) !!},
+  "description": {!! json_encode($seoDesc) !!},
   "contactPoint": {
     "@type": "ContactPoint",
-    "telephone": {{ json_encode(preg_replace('/\s+/', '', $phone)) }},
+    "telephone": {!! json_encode(preg_replace('/\s+/', '', $phone)) !!},
     "contactType": "customer service",
-    "email": {{ json_encode($email) }},
+    "email": {!! json_encode($email) !!},
     "areaServed": "KE"
   },
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": {{ json_encode($address) }},
+    "addressLocality": {!! json_encode($address) !!},
     "addressCountry": "KE"
   }
 }
@@ -73,24 +73,74 @@
       <a href="#features" class="btn btn-secondary btn-hero">Learn More</a>
     </div>
   </div>
+  <a href="#intro-spotlight" class="hero__scroll-indicator" aria-label="Scroll to introduction">
+    <svg class="hero__scroll-arrow" viewBox="0 0 24 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 2v18M5 20l7 7 7-7"/>
+    </svg>
+  </a>
 </section>
 
+<section class="intro-spotlight scroll-animate" id="intro-spotlight">
+  <div class="container">
+    <div class="intro-spotlight__inner">
+      <div class="intro-spotlight__content">
+        <p class="intro-spotlight__label">About us</p>
+        <h2 class="intro-spotlight__title">Livenet Solutions</h2>
+        <div class="intro-spotlight__text">
+          @if(!empty(trim($siteSettings['home_intro_text'] ?? '')))
+            @foreach(preg_split('/\r\n|\r|\n/', trim($siteSettings['home_intro_text']), -1, PREG_SPLIT_NO_EMPTY) as $para)
+              <p>{{ $para }}</p>
+            @endforeach
+          @else
+            <p>Livenet Solutions is a leading internet service provider in Nairobi, delivering fast, reliable connectivity for homes and businesses. We build and maintain our own network so we can offer consistent speeds, transparent pricing, and local support when you need it.</p>
+          @endif
+        </div>
+        <a href="#packages" class="intro-spotlight__cta">Explore packages <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="intro-spotlight__media">
+        @if(!empty($siteSettings['home_decor_image_1']))
+          <div class="intro-spotlight__image-wrap">
+            <img src="{{ asset('storage/' . $siteSettings['home_decor_image_1']) }}" alt="" width="560" height="360" loading="lazy" decoding="async">
+          </div>
+        @else
+          <div class="intro-spotlight__image-wrap intro-spotlight__image-wrap--placeholder" aria-hidden="true">
+            <span>Decorative image</span>
+          </div>
+        @endif
+      </div>
+    </div>
+  </div>
+</section>
+
+@php
+  $featuresSection = $homeSections['features'] ?? null;
+  $servicesImage = ($featuresSection && !empty($featuresSection->image)) ? $featuresSection->image : ($siteSettings['home_services_section_image'] ?? null);
+@endphp
 <section class="section section-alt section--vibrant scroll-animate" id="features">
   <div class="container">
-    <h2 class="section-title section-title--gradient">Internet Services for Home & Business</h2>
-    <p class="section-subtitle">Whether you need seamless streaming at home or enterprise-grade connectivity for your business, we have a plan that fits.</p>
-    <div class="feature-grid feature-grid--home">
-      <div class="feature-card feature-card--vibrant">
-        <div class="icon icon--vibrant" aria-hidden="true">🏠</div>
-        <h3>Home Internet</h3>
-        <p>High-speed fiber and cable plans for streaming, gaming, and working from home. No data caps, no surprises.</p>
-        <a href="{{ route('home-internet') }}" class="feature-card__link">View plans <span class="arrow">→</span></a>
+    <h2 class="section-title section-title--gradient">{{ $featuresSection && trim($featuresSection->title ?? '') !== '' ? $featuresSection->title : 'Internet Services for Home & Business' }}</h2>
+    <p class="section-subtitle">{{ $featuresSection && trim($featuresSection->subtitle ?? '') !== '' ? $featuresSection->subtitle : 'Whether you need seamless streaming at home or enterprise-grade connectivity for your business, we have a plan that fits.' }}</p>
+    <div class="services-with-image">
+      <div class="services-cards">
+        <div class="feature-card feature-card--vibrant">
+          <div class="icon icon--vibrant" aria-hidden="true">🏠</div>
+          <h3>Home Internet</h3>
+          <p>High-speed fiber and cable plans for streaming, gaming, and working from home. No data caps, no surprises.</p>
+          <a href="{{ route('home-internet') }}" class="feature-card__link">View plans <span class="arrow">→</span></a>
+        </div>
+        <div class="feature-card feature-card--vibrant">
+          <div class="icon icon--vibrant" aria-hidden="true">🏢</div>
+          <h3>Business Internet</h3>
+          <p>Dedicated bandwidth, SLA-backed uptime, and priority support so your business stays online.</p>
+          <a href="{{ route('business-internet') }}" class="feature-card__link">View plans <span class="arrow">→</span></a>
+        </div>
       </div>
-      <div class="feature-card feature-card--vibrant">
-        <div class="icon icon--vibrant" aria-hidden="true">🏢</div>
-        <h3>Business Internet</h3>
-        <p>Dedicated bandwidth, SLA-backed uptime, and priority support so your business stays online.</p>
-        <a href="{{ route('business-internet') }}" class="feature-card__link">View plans <span class="arrow">→</span></a>
+      <div class="services-image-wrap">
+        @if(!empty($servicesImage))
+          <img src="{{ asset('storage/' . $servicesImage) }}" alt="" class="services-image" width="600" height="400" loading="lazy" decoding="async">
+        @else
+          <div class="services-image services-image--placeholder" aria-hidden="true"><span>Image placeholder</span></div>
+        @endif
       </div>
     </div>
   </div>
@@ -105,6 +155,15 @@
     <div class="plans-grid plans-grid--home">
       @forelse($homePlans as $plan)
       <div class="plan-card plan-card--home {{ $plan->is_highlighted ? 'plan-card--featured' : '' }}">
+        @if($plan->show_image ?? true)
+          <div class="plan-card__image-wrap">
+            @if($plan->image)
+              <img src="{{ asset('storage/' . $plan->image) }}" alt="" class="plan-card__image" width="400" height="220" loading="lazy" decoding="async">
+            @else
+              <div class="plan-card__image plan-card__image--placeholder" aria-hidden="true"><span>Plan image</span></div>
+            @endif
+          </div>
+        @endif
         @if($plan->badge)<span class="plan-card__badge">{{ $plan->badge }}</span>@endif
         <h3>{{ $plan->name }}</h3>
         <p class="price-tag">{{ $plan->currency }} {{ number_format($plan->price) }}<small>/mo</small></p>
@@ -126,6 +185,15 @@
     <div class="plans-grid plans-grid--home">
       @forelse($businessPlans as $plan)
       <div class="plan-card plan-card--business {{ $plan->is_highlighted ? 'plan-card--featured' : '' }}">
+        @if($plan->show_image ?? true)
+          <div class="plan-card__image-wrap">
+            @if($plan->image)
+              <img src="{{ asset('storage/' . $plan->image) }}" alt="" class="plan-card__image" width="400" height="220" loading="lazy" decoding="async">
+            @else
+              <div class="plan-card__image plan-card__image--placeholder" aria-hidden="true"><span>Plan image</span></div>
+            @endif
+          </div>
+        @endif
         @if($plan->badge)<span class="plan-card__badge">{{ $plan->badge }}</span>@endif
         <h3>{{ $plan->name }}</h3>
         <p class="price-tag">{{ $plan->currency }} {{ number_format($plan->price) }}<small>/mo</small></p>
@@ -142,23 +210,6 @@
       @endforelse
     </div>
     <p class="packages-link"><a href="{{ route('business-internet') }}">View all business internet plans →</a></p>
-  </div>
-</section>
-
-<section class="section section--vibrant coverage-section scroll-animate" id="coverage">
-  <div class="container">
-    <h2 class="section-title section-title--gradient">Our Coverage</h2>
-    <p class="section-subtitle">We serve Nairobi and environs.@if(empty(trim($siteSettings['coverage_map_embed_url'] ?? ''))) Hover over the map to see covered areas.@endif</p>
-    <div class="coverage-map-wrap">
-      @if(!empty(trim($siteSettings['coverage_map_embed_url'] ?? '')))
-        <iframe class="coverage-map-iframe" src="{{ $siteSettings['coverage_map_embed_url'] }}" width="100%" height="450" style="border:0; border-radius: var(--radius, 8px);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Coverage area map"></iframe>
-      @else
-        <div id="coverage-map" class="coverage-map" aria-label="Coverage map of Nairobi and environs" data-center="{{ $siteSettings['coverage_map_center'] ?? '-1.286389,36.817223' }}" data-zoom="{{ $siteSettings['coverage_map_zoom'] ?? '11' }}" data-zones-url="{{ route('coverage.zones') }}"></div>
-        <div class="coverage-legend">
-          <span class="coverage-legend__item"><i class="coverage-legend__dot"></i> Covered</span>
-        </div>
-      @endif
-    </div>
   </div>
 </section>
 
@@ -227,100 +278,4 @@
 </section>
 </div>
 
-@push('styles')
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
-@endpush
-
-@push('scripts')
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-<script>
-(function() {
-  function initCoverageMap() {
-    var mapEl = document.getElementById('coverage-map');
-    if (!mapEl || typeof L === 'undefined') return;
-
-    var centerStr = (mapEl.getAttribute('data-center') || '-1.286389,36.817223').trim();
-    var parts = centerStr.split(/[\s,]+/);
-    var center = parts.length >= 2 ? [parseFloat(parts[0]), parseFloat(parts[1])] : [-1.286389, 36.817223];
-    var zoom = parseInt(mapEl.getAttribute('data-zoom') || '11', 10) || 11;
-    if (isNaN(zoom) || zoom < 1) zoom = 11;
-    if (zoom > 18) zoom = 18;
-
-    var map = L.map('coverage-map', {
-      center: center,
-      zoom: zoom,
-      zoomControl: true,
-      scrollWheelZoom: true
-    });
-    L.control.zoom({ position: 'topright' }).addTo(map);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      maxZoom: 19
-    }).addTo(map);
-
-    var coverageColor = '#0066cc';
-    var coverageFill = 'rgba(0, 102, 204, 0.35)';
-    var hoverFill = 'rgba(0, 163, 224, 0.55)';
-
-    var defaultZones = [
-      { name: 'Central Nairobi', coords: [[-1.278, 36.808], [-1.278, 36.825], [-1.295, 36.825], [-1.295, 36.808]] },
-      { name: 'Westlands', coords: [[-1.258, 36.798], [-1.258, 36.815], [-1.272, 36.815], [-1.272, 36.798]] },
-      { name: 'Kilimani', coords: [[-1.288, 36.782], [-1.288, 36.798], [-1.305, 36.798], [-1.305, 36.782]] },
-      { name: 'Lavington', coords: [[-1.278, 36.778], [-1.278, 36.792], [-1.292, 36.792], [-1.292, 36.778]] },
-      { name: 'Karen', coords: [[-1.308, 36.698], [-1.308, 36.718], [-1.328, 36.718], [-1.328, 36.698]] },
-      { name: 'Eastlands', coords: [[-1.282, 36.848], [-1.282, 36.868], [-1.298, 36.868], [-1.298, 36.848]] },
-      { name: 'Upper Hill', coords: [[-1.295, 36.812], [-1.295, 36.825], [-1.308, 36.825], [-1.308, 36.812]] },
-      { name: 'Runda / Gigiri', coords: [[-1.238, 36.808], [-1.238, 36.828], [-1.255, 36.828], [-1.255, 36.808]] }
-    ];
-
-    function drawZones(zones) {
-      if (!zones || !Array.isArray(zones)) zones = defaultZones;
-      zones = zones.filter(function(z) { return z && z.coords && z.coords.length >= 3; });
-      if (zones.length === 0) zones = defaultZones;
-      zones.forEach(function(zone) {
-      var layer = L.polygon(zone.coords, {
-        color: coverageColor,
-        weight: 2,
-        fillColor: coverageColor,
-        fillOpacity: 0.35,
-        className: 'coverage-zone'
-      }).addTo(map);
-
-      layer.bindTooltip(zone.name + ' &mdash; <strong>Covered</strong>', {
-        permanent: false,
-        direction: 'top',
-        className: 'coverage-tooltip',
-        offset: [0, -8]
-      });
-
-      layer.on('mouseover', function() {
-        this.setStyle({ fillOpacity: 0.55, weight: 3 });
-        this.bringToFront();
-      });
-      layer.on('mouseout', function() {
-        this.setStyle({ fillOpacity: 0.35, weight: 2 });
-      });
-    });
-    }
-
-    var zonesUrl = mapEl.getAttribute('data-zones-url');
-    if (zonesUrl) {
-      fetch(zonesUrl, { headers: { 'Accept': 'application/json' } })
-        .then(function(r) { return r.ok ? r.json() : []; })
-        .then(function(zones) { drawZones(zones); })
-        .catch(function() { drawZones(defaultZones); });
-    } else {
-      drawZones(defaultZones);
-    }
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initCoverageMap);
-  } else {
-    initCoverageMap();
-  }
-})();
-</script>
-@endpush
 @endsection

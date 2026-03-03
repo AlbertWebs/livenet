@@ -15,7 +15,8 @@ class InternetPlanController extends Controller
             $query->where('type', $request->type);
         }
         $plans = $query->orderBy('sort_order')->orderBy('price')->paginate(15);
-        return view('admin.internet-plans.index', compact('plans'));
+        $type = $request->get('type', 'home');
+        return view('admin.internet-plans.index', compact('plans', 'type'));
     }
 
     public function create(Request $request)
@@ -36,13 +37,20 @@ class InternetPlanController extends Controller
             'is_highlighted' => 'boolean',
             'badge' => 'nullable|string|max:50',
             'sort_order' => 'integer',
+            'image' => 'nullable|image|max:2048',
+            'show_image' => 'boolean',
         ]);
         $v['is_highlighted'] = $request->boolean('is_highlighted');
+        $v['show_image'] = $request->boolean('show_image');
         $v['currency'] = $v['currency'] ?? 'KES';
         $v['sort_order'] = (int) ($v['sort_order'] ?? 0);
         $lines = $v['features'] ? array_filter(explode("\n", str_replace("\r", '', $v['features']))) : [];
         $v['features'] = json_encode(array_values($lines));
-        InternetPlan::create($v);
+        unset($v['image']);
+        $plan = InternetPlan::create($v);
+        if ($request->hasFile('image')) {
+            $plan->update(['image' => $request->file('image')->store('plans', 'public')]);
+        }
         return redirect()->route('admin.internet-plans.index', ['type' => $v['type']])->with('success', 'Plan created.');
     }
 
@@ -63,11 +71,20 @@ class InternetPlanController extends Controller
             'is_highlighted' => 'boolean',
             'badge' => 'nullable|string|max:50',
             'sort_order' => 'integer',
+            'image' => 'nullable|image|max:2048',
+            'show_image' => 'boolean',
         ]);
         $v['is_highlighted'] = $request->boolean('is_highlighted');
+        $v['show_image'] = $request->boolean('show_image');
         $lines = !empty($v['features']) ? array_filter(explode("\n", str_replace("\r", '', $v['features']))) : [];
         $v['features'] = json_encode(array_values($lines));
+        unset($v['image']);
         $internetPlan->update($v);
+        if ($request->boolean('remove_image')) {
+            $internetPlan->update(['image' => null]);
+        } elseif ($request->hasFile('image')) {
+            $internetPlan->update(['image' => $request->file('image')->store('plans', 'public')]);
+        }
         return redirect()->route('admin.internet-plans.index', ['type' => $v['type']])->with('success', 'Plan updated.');
     }
 

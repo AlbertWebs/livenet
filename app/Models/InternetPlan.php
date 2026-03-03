@@ -8,12 +8,13 @@ class InternetPlan extends Model
 {
     protected $fillable = [
         'type', 'name', 'speed', 'price', 'currency', 'features',
-        'is_highlighted', 'badge', 'sort_order',
+        'is_highlighted', 'badge', 'image', 'show_image', 'sort_order',
     ];
 
     protected $casts = [
         'price' => 'decimal:2',
         'is_highlighted' => 'boolean',
+        'show_image' => 'boolean',
     ];
 
     public function getFeaturesListAttribute(): array

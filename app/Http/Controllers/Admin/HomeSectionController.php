@@ -57,7 +57,10 @@ class HomeSectionController extends Controller
             'sort_order' => 'integer',
         ]);
         $v['is_active'] = $request->boolean('is_active');
-        if ($request->hasFile('image')) {
+        if ($request->boolean('remove_image') && $homeSection->image) {
+            Storage::disk('public')->delete($homeSection->image);
+            $v['image'] = null;
+        } elseif ($request->hasFile('image')) {
             if ($homeSection->image) {
                 Storage::disk('public')->delete($homeSection->image);
             }

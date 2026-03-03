@@ -83,8 +83,8 @@
   /* Scroll-triggered animations */
   .scroll-animate {
     opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+    transform: translateY(24px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .scroll-animate.is-in-view {
     opacity: 1;
@@ -167,6 +167,13 @@ s0.parentNode.insertBefore(s1,s0);
         });
       }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
       els.forEach(function(el) { io.observe(el); });
+    })();
+
+    (function lazyImages() {
+      document.querySelectorAll('img[loading="lazy"]').forEach(function(img) {
+        if (img.complete) img.classList.add('loaded');
+        else img.addEventListener('load', function() { img.classList.add('loaded'); });
+      });
     })();
   </script>
   @stack('scripts')

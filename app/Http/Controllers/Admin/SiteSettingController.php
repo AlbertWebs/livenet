@@ -10,7 +10,7 @@ class SiteSettingController extends Controller
 {
     public function index()
     {
-        $keys = ['site_name', 'logo', 'favicon', 'og_image', 'contact_email', 'phone', 'address', 'facebook_url', 'twitter_url', 'linkedin_url', 'seo_meta_title', 'seo_meta_description', 'map_embed_url', 'stat_1_number', 'stat_1_label', 'stat_2_number', 'stat_2_label', 'stat_3_number', 'stat_3_label'];
+        $keys = ['site_name', 'logo', 'favicon', 'og_image', 'home_services_section_image', 'home_decor_image_1', 'home_decor_image_2', 'home_intro_text', 'contact_email', 'phone', 'address', 'facebook_url', 'twitter_url', 'linkedin_url', 'seo_meta_title', 'seo_meta_description', 'map_embed_url', 'stat_1_number', 'stat_1_label', 'stat_2_number', 'stat_2_label', 'stat_3_number', 'stat_3_label'];
         $settings = [];
         foreach ($keys as $key) {
             $settings[$key] = SiteSetting::get($key);
@@ -40,8 +40,12 @@ class SiteSettingController extends Controller
             'logo' => 'nullable|image|max:2048',
             'favicon' => 'nullable|image|max:512',
             'og_image' => 'nullable|image|max:2048',
+            'home_services_section_image' => 'nullable|image|max:2048',
+            'home_decor_image_1' => 'nullable|image|max:2048',
+            'home_decor_image_2' => 'nullable|image|max:2048',
+            'home_intro_text' => 'nullable|string|max:2000',
         ]);
-        $data = $request->only(['site_name', 'contact_email', 'phone', 'address', 'facebook_url', 'twitter_url', 'linkedin_url', 'seo_meta_title', 'seo_meta_description', 'map_embed_url', 'stat_1_number', 'stat_1_label', 'stat_2_number', 'stat_2_label', 'stat_3_number', 'stat_3_label']);
+        $data = $request->only(['site_name', 'contact_email', 'phone', 'address', 'facebook_url', 'twitter_url', 'linkedin_url', 'seo_meta_title', 'seo_meta_description', 'map_embed_url', 'stat_1_number', 'stat_1_label', 'stat_2_number', 'stat_2_label', 'stat_3_number', 'stat_3_label', 'home_intro_text']);
         foreach ($data as $key => $value) {
             SiteSetting::set($key, $value ?? '');
         }
@@ -59,6 +63,13 @@ class SiteSettingController extends Controller
             SiteSetting::set('og_image', '');
         } elseif ($request->hasFile('og_image')) {
             SiteSetting::set('og_image', $request->file('og_image')->store('settings', 'public'));
+        }
+        foreach (['home_services_section_image', 'home_decor_image_1', 'home_decor_image_2'] as $imgKey) {
+            if ($request->boolean('remove_' . $imgKey)) {
+                SiteSetting::set($imgKey, '');
+            } elseif ($request->hasFile($imgKey)) {
+                SiteSetting::set($imgKey, $request->file($imgKey)->store('settings', 'public'));
+            }
         }
         return redirect()->route('admin.settings.index')->with('success', 'Settings updated.');
     }
