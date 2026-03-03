@@ -16,6 +16,8 @@ The site is built with **Laravel Blade** templates. Static HTML copies are also 
 
 **Named routes:** `home`, `home-internet`, `business-internet`, `articles`, `contact`, `contact.store` (POST).
 
+**Admin panel:** Log in at `/login`. Full guide: [docs/ADMIN-GUIDE.md](docs/ADMIN-GUIDE.md) — what each admin section does and where it appears on the homepage and site.
+
 ## Pages
 
 | Page | Route / URL | Description |
