@@ -13,6 +13,7 @@
     </button>
     <nav class="nav-center">
       <ul class="nav-menu" id="nav-menu">
+        <li><a href="{{ route('home') }}" class="{{ request()->routeIs('home') ? 'nav-menu__link--active' : '' }}">Home</a></li>
         <li><a href="{{ route('home-internet') }}" class="{{ request()->routeIs('home-internet') ? 'nav-menu__link--active' : '' }}">Home Internet</a></li>
         <li><a href="{{ route('business-internet') }}" class="{{ request()->routeIs('business-internet') ? 'nav-menu__link--active' : '' }}">Business Internet</a></li>
         <li><a href="{{ route('our-coverage') }}" class="{{ request()->routeIs('our-coverage') ? 'nav-menu__link--active' : '' }}">Our Coverage</a></li>
