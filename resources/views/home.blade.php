@@ -1,281 +1,495 @@
 @extends('layouts.app')
 
-@php
-  $siteName = $siteSettings['site_name'] ?? 'Livenet Solutions';
-  $seoTitle = $siteSettings['seo_meta_title'] ?? $siteName . ' | Fast, Reliable Home & Business Internet';
-  $seoDesc = $siteSettings['seo_meta_description'] ?? 'Livenet Solutions delivers fast, reliable internet for home and business. Get connected with our high-speed fiber plans and dedicated support.';
-  $ogDesc = $siteSettings['seo_meta_description'] ?? 'Fast, reliable internet for home and business. High-speed fiber, 24/7 support, no data caps.';
-  $ogImage = !empty($siteSettings['og_image']) ? asset('storage/' . $siteSettings['og_image']) : (!empty($siteSettings['logo']) ? asset('storage/' . $siteSettings['logo']) : asset('logo.png'));
-  $ogImageUrl = url($ogImage);
-  $phone = $siteSettings['phone'] ?? '+254712104104';
-  $email = $siteSettings['contact_email'] ?? 'info@livenetsolutions.com';
-  $address = $siteSettings['address'] ?? 'Nairobi, Kenya';
-@endphp
-
-@section('title', $seoTitle)
-@section('meta_description', $seoDesc)
-@section('meta_extra')
-  <meta name="robots" content="index, follow">
-  <meta name="keywords" content="internet provider Kenya, high-speed internet Nairobi, home internet, business internet, fiber internet, broadband, Livenet Solutions, reliable internet">
-@endsection
-
-@section('canonical', url('/'))
-
-@section('og_title', $seoTitle)
-@section('og_description', $ogDesc)
-@section('og_image', $ogImageUrl)
-@section('og_image_alt', $siteName . ' – Fast, reliable internet for home and business')
-@section('og_site_name', $siteName)
-
-@section('jsonld')
-@verbatim
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": {!! json_encode($siteName) !!},
-  "url": {!! json_encode(url('/')) !!},
-  "logo": {!! json_encode(url(!empty($siteSettings['logo']) ? asset('storage/' . $siteSettings['logo']) : asset('logo.png'))) !!},
-  "description": {!! json_encode($seoDesc) !!},
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": {!! json_encode(preg_replace('/\s+/', '', $phone)) !!},
-    "contactType": "customer service",
-    "email": {!! json_encode($email) !!},
-    "areaServed": "KE"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": {!! json_encode($address) !!},
-    "addressCountry": "KE"
-  }
-}
-</script>
-@endverbatim
-@endsection
+@section('title', ($siteSettings['seo_meta_title'] ?? null) ?: (($siteSettings['site_name'] ?? 'Livenet Solutions') . ' | Fast, Reliable Home & Business Internet'))
+@section('meta_description', $siteSettings['seo_meta_description'] ?? 'Fast, reliable internet for home and business. High-speed fiber, 24/7 support.')
 
 @section('content')
-<div class="page-home">
-<section class="hero hero--vibrant hero--video">
-  <video class="hero__video" autoplay muted loop playsinline aria-hidden="true">
-    <source src="{{ asset('7140931-hd_1920_1080_24fps.mp4') }}" type="video/mp4">
-  </video>
-  <div class="hero__video-overlay" aria-hidden="true"></div>
-  <div class="hero__glow hero__glow--1" aria-hidden="true"></div>
-  <div class="hero__glow hero__glow--2" aria-hidden="true"></div>
-  <div class="hero__glow hero__glow--3" aria-hidden="true"></div>
-  <div class="container">
-    <p class="hero__badge">High-Speed Internet</p>
-    <h1 class="hero__title">Fast, Reliable Internet Built for You</h1>
-    <p class="subheading">Livenet Solutions delivers high-speed home and business internet with 24/7 support. Stream, work, and stay connected without the buffer.</p>
-    <div class="cta-group">
-      <a href="{{ route('contact') }}#apply" class="btn btn-primary btn-hero btn-hero--glow">Apply for Connection</a>
-      <a href="#features" class="btn btn-secondary btn-hero">Learn More</a>
-    </div>
-  </div>
-  <a href="#intro-spotlight" class="hero__scroll-indicator" aria-label="Scroll to introduction">
-    <svg class="hero__scroll-arrow" viewBox="0 0 24 32" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M12 2v18M5 20l7 7 7-7"/>
-    </svg>
-  </a>
-</section>
-
-<section class="intro-spotlight scroll-animate" id="intro-spotlight">
-  <div class="container">
-    <div class="intro-spotlight__inner">
-      <div class="intro-spotlight__content">
-        <p class="intro-spotlight__label">About us</p>
-        <h2 class="intro-spotlight__title">Livenet Solutions</h2>
-        <div class="intro-spotlight__text">
-          @if(!empty(trim($siteSettings['home_intro_text'] ?? '')))
-            @foreach(preg_split('/\r\n|\r|\n/', trim($siteSettings['home_intro_text']), -1, PREG_SPLIT_NO_EMPTY) as $para)
-              <p>{{ $para }}</p>
-            @endforeach
-          @else
-            <p>Livenet Solutions is a leading internet service provider in Nairobi, delivering fast, reliable connectivity for homes and businesses. We build and maintain our own network so we can offer consistent speeds, transparent pricing, and local support when you need it.</p>
-          @endif
+@push('styles')
+<style>
+.service-one .service-block_one-inner {
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+</style>
+@endpush
+<section class="slider-one" id="home">
+    <div class="swiper_carousel swiper-container" data-swiper='{"spaceBetween":0,"slidesPerView":1,"navigation":{"nextEl":".main-slider_button-next","prevEl":".main-slider_button-prev","clickable":"true"},"pagination":{"el":".main-slider_pagination","clickable":"true"},"autoplay":{"delay":"6000"},"breakpoints":{"320":{"slidesPerView":1,"spaceBetween":0},"480":{"slidesPerView":1,"spaceBetween":0},"640":{"slidesPerView":1,"spaceBetween":0}}}'>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="slider-one_image" style="background-image: url({{ asset('images/main-slider/1.jpg') }})"></div>
+                <div class="auto-container">
+                    <div class="slider-one_content-column">
+                        <div class="slider-one_content-inner">
+                            <div class="slider-one_title">Home Internet</div>
+                            <h1 class="slider-one_heading">Do not suffer the buffer.</h1>
+                            <div class="slider-one_text">With our ultra fast internet connection you can enjoy your streamings with no interruptions.</div>
+                            <div class="slider-one_button-box d-flex align-items-center flex-wrap">
+                                <a class="btn-style-one theme-btn" href="{{ route('home-internet') }}">
+                                    <div class="btn-wrap"><span class="text-one">Discover More</span><span class="text-two">Discover More</span></div>
+                                </a>
+                                <div class="slider-one_phone">
+                                    <div class="slider-one_phone-icon"><i class="fa fa-phone"></i></div>
+                                    Give us a call <br>
+                                    <a href="tel:{{ preg_replace('/\D/', '', $siteSettings['phone'] ?? '254712104104') }}">{{ $siteSettings['phone'] ?? '+254 712 104 104' }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide">
+                <div class="slider-one_image" style="background-image: url({{ asset('images/main-slider/1.jpg') }})"></div>
+                <div class="auto-container">
+                    <div class="slider-one_content-column">
+                        <div class="slider-one_content-inner">
+                            <div class="slider-one_title">Business Internet</div>
+                            <h1 class="slider-one_heading">Your Trusted Business Partner</h1>
+                            <div class="slider-one_text">Dedicated bandwidth, SLA-backed uptime, and priority support so your business stays online.</div>
+                            <div class="slider-one_button-box d-flex align-items-center flex-wrap">
+                                <a class="btn-style-one theme-btn" href="{{ route('business-internet') }}">
+                                    <div class="btn-wrap"><span class="text-one">Discover More</span><span class="text-two">Discover More</span></div>
+                                </a>
+                                <div class="slider-one_phone">
+                                    <div class="slider-one_phone-icon"><i class="fa fa-phone"></i></div>
+                                    Give us a call <br>
+                                    <a href="tel:{{ preg_replace('/\D/', '', $siteSettings['phone'] ?? '254712104104') }}">{{ $siteSettings['phone'] ?? '+254 712 104 104' }}</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <a href="#packages" class="intro-spotlight__cta">Explore packages <span aria-hidden="true">→</span></a>
-      </div>
-      <div class="intro-spotlight__media">
-        @if(!empty($siteSettings['home_decor_image_1']))
-          <div class="intro-spotlight__image-wrap">
-            <img src="{{ asset('storage/' . $siteSettings['home_decor_image_1']) }}" alt="" width="560" height="360" loading="lazy" decoding="async">
-          </div>
-        @else
-          <div class="intro-spotlight__image-wrap intro-spotlight__image-wrap--placeholder" aria-hidden="true">
-            <span>Decorative image</span>
-          </div>
-        @endif
-      </div>
+        <div class="swiper-pagination"></div>
+        <div class="main-slider_button-prev fas fa-arrow-left fa-fw"></div>
+        <div class="main-slider_button-next fas fa-arrow-right fa-fw"></div>
     </div>
-  </div>
 </section>
 
-@php
-  $featuresSection = $homeSections['features'] ?? null;
-  $servicesImage = ($featuresSection && !empty($featuresSection->image)) ? $featuresSection->image : ($siteSettings['home_services_section_image'] ?? null);
-@endphp
-<section class="section section-alt section--vibrant scroll-animate" id="features">
-  <div class="container">
-    <h2 class="section-title section-title--gradient">{{ $featuresSection && trim($featuresSection->title ?? '') !== '' ? $featuresSection->title : 'Internet Services for Home & Business' }}</h2>
-    <p class="section-subtitle">{{ $featuresSection && trim($featuresSection->subtitle ?? '') !== '' ? $featuresSection->subtitle : 'Whether you need seamless streaming at home or enterprise-grade connectivity for your business, we have a plan that fits.' }}</p>
-    <div class="services-with-image">
-      <div class="services-cards">
-        <div class="feature-card feature-card--vibrant">
-          <div class="icon icon--vibrant" aria-hidden="true">🏠</div>
-          <h3>Home Internet</h3>
-          <p>High-speed fiber and cable plans for streaming, gaming, and working from home. No data caps, no surprises.</p>
-          <a href="{{ route('home-internet') }}" class="feature-card__link">View plans <span class="arrow">→</span></a>
+<section class="service-one">
+    <div class="auto-container">
+        <div class="row g-0">
+            <div class="service-block_one col-lg-4 col-md-6 col-sm-12">
+                <div class="service-block_one-inner">
+                    <div class="service-block_one-upper">
+                        <div class="service-block_one-icon flaticon-cinema"></div>
+                        <h4 class="service-block_one-heading"><a href="{{ route('home-internet') }}">Home <br> Internet</a></h4>
+                    </div>
+                    <div class="service-block_one-text">Fast home internet for streaming, gaming, and working from home with minimal interruptions.</div>
+                    <a class="service-block_one-more" href="{{ route('home-internet') }}">Get Service</a>
+                </div>
+            </div>
+            <div class="service-block_one col-lg-4 col-md-6 col-sm-12">
+                <div class="service-block_one-inner">
+                    <div class="service-block_one-upper">
+                        <div class="service-block_one-icon flaticon-wifi-router-1"></div>
+                        <h4 class="service-block_one-heading"><a href="{{ route('our-coverage') }}">Our <br> Coverage</a></h4>
+                    </div>
+                    <div class="service-block_one-text">Check our coverage areas and see if we can connect you.</div>
+                    <a class="service-block_one-more" href="{{ route('our-coverage') }}">Get Service</a>
+                </div>
+            </div>
+            <div class="service-block_one col-lg-4 col-md-6 col-sm-12">
+                <div class="service-block_one-inner">
+                    <div class="service-block_one-upper">
+                        <div class="service-block_one-icon flaticon-smartphone"></div>
+                        <h4 class="service-block_one-heading"><a href="{{ route('business-internet') }}">Business <br> Internet</a></h4>
+                    </div>
+                    <div class="service-block_one-text">Dedicated bandwidth and reliable communication for your business.</div>
+                    <a class="service-block_one-more" href="{{ route('business-internet') }}">Get Service</a>
+                </div>
+            </div>
         </div>
-        <div class="feature-card feature-card--vibrant">
-          <div class="icon icon--vibrant" aria-hidden="true">🏢</div>
-          <h3>Business Internet</h3>
-          <p>Dedicated bandwidth, SLA-backed uptime, and priority support so your business stays online.</p>
-          <a href="{{ route('business-internet') }}" class="feature-card__link">View plans <span class="arrow">→</span></a>
+    </div>
+</section>
+
+<section class="about-one" id="about">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="about-one_image-column col-lg-6 col-md-12 col-sm-12">
+                <div class="about-one_image-outer">
+                    <div class="about-one_pattern" style="background-image: url({{ asset('images/background/pattern-1.png') }})"></div>
+                    <div class="about-one_image wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+                        <img src="{{ !empty($siteSettings['about_section_image_1'] ?? null) ? asset('storage/' . $siteSettings['about_section_image_1']) : asset('images/resource/about-1.jpg') }}" alt="" />
+                        <div class="about-one_color-layer"></div>
+                        <div class="about-one_color-layer-two"></div>
+                    </div>
+                    <div class="about-one_image-two" data-parallax='{"y" : 60}'>
+                        <img src="{{ !empty($siteSettings['about_section_image_2'] ?? null) ? asset('storage/' . $siteSettings['about_section_image_2']) : asset('images/ab-2.jpg') }}" alt="" />
+                    </div>
+                </div>
+            </div>
+            <div class="about-one_content-column col-lg-6 col-md-12 col-sm-12">
+                <div class="about-one_content-outer">
+                    <div class="sec-title">
+                        <div class="sec-title_title tx-split-text split-in-right">WHO WE ARE</div>
+                        <h2 class="sec-title_heading tx-split-text split-in-right">Get internet & communication <br>service from us</h2>
+                    </div>
+                    <div class="about-one_bold-text">
+                        @if(!empty(trim($siteSettings['home_intro_text'] ?? '')))
+                            @foreach(preg_split('/\r\n|\r|\n/', trim($siteSettings['home_intro_text']), -1, PREG_SPLIT_NO_EMPTY) as $para)
+                                {{ $para }}@if(!$loop->last) @endif
+                            @endforeach
+                        @else
+                            {{ $siteSettings['site_name'] ?? 'Livenet Solutions' }} delivers fast, reliable internet for homes and businesses. We build and maintain our own network for consistent speeds and local support.
+                        @endif
+                    </div>
+                    <div class="about-one_feature">
+                        <div class="about-one_feature-icon flaticon-cyber-security"></div>
+                        <strong>24/7 Support</strong>
+                        We are committed to serving and supporting our customers 24/7
+                    </div>
+                    <ul class="about-one_lists">
+                        <li><i class="arrow fa fa-arrow-circle-right"></i> Home Internet Connection</li>
+                        <li><i class="arrow fa fa-arrow-circle-right"></i> Business Internet</li>
+                        <li><i class="arrow fa fa-arrow-circle-right"></i> Reliable Support</li>
+                    </ul>
+                    <div class="inverse-one_phone">
+                        <div class="inverse-one_phone-icon"><i class="fa fa-phone"></i></div>
+                        Give us a call <br>
+                        <a href="tel:{{ preg_replace('/\D/', '', $siteSettings['phone'] ?? '254712104104') }}">{{ $siteSettings['phone'] ?? '+254 712 104 104' }}</a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="services-image-wrap">
-        @if(!empty($servicesImage))
-          <img src="{{ asset('storage/' . $servicesImage) }}" alt="" class="services-image" width="600" height="400" loading="lazy" decoding="async">
-        @else
-          <div class="services-image services-image--placeholder" aria-hidden="true"><span>Image placeholder</span></div>
+    </div>
+</section>
+
+<section class="benefit-one" style="background-image: url({{ asset('images/background/benefit-pattern.png') }})">
+    <div class="auto-container">
+        <div class="sec-title">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                <div class="left-box">
+                    <div class="sec-title_title">OUR BENEFITS</div>
+                    <h2 class="sec-title_heading">A few great reasons to choose <br>{{ $siteSettings['site_name'] ?? 'Livenet Solutions' }}</h2>
+                </div>
+                <div class="right-box">
+                    <div class="sec-title_text">We focus on speed, reliability, and support so you can focus on what matters.</div>
+                </div>
+            </div>
+        </div>
+        <div class="row clearfix">
+            <div class="benefit-block_one col-lg-3 col-md-6 col-sm-6">
+                <div class="benefit-block_one-inner">
+                    <div class="benefit-block_one-pattern" style="background-image: url({{ asset('images/background/benefit-block_pattern.png') }})"></div>
+                    <div class="benefit-block_one-color"></div>
+                    <div class="benefit-block_one-icon flaticon-installation"></div>
+                    <h4 class="benefit-block_one-heading"><a href="{{ route('home-internet') }}">Low <br> Latency</a></h4>
+                </div>
+            </div>
+            <div class="benefit-block_one col-lg-3 col-md-6 col-sm-6">
+                <div class="benefit-block_one-inner">
+                    <div class="benefit-block_one-pattern" style="background-image: url({{ asset('images/background/benefit-block_pattern.png') }})"></div>
+                    <div class="benefit-block_one-color"></div>
+                    <div class="benefit-block_one-icon flaticon-high-speed"></div>
+                    <h4 class="benefit-block_one-heading"><a href="{{ route('our-coverage') }}">Ultra Fast <br> Connect</a></h4>
+                </div>
+            </div>
+            <div class="benefit-block_one col-lg-3 col-md-6 col-sm-6">
+                <div class="benefit-block_one-inner">
+                    <div class="benefit-block_one-pattern" style="background-image: url({{ asset('images/background/benefit-block_pattern.png') }})"></div>
+                    <div class="benefit-block_one-color"></div>
+                    <div class="benefit-block_one-icon flaticon-smart-tv"></div>
+                    <h4 class="benefit-block_one-heading"><a href="{{ route('business-internet') }}">Business <br> Solutions</a></h4>
+                </div>
+            </div>
+            <div class="benefit-block_one col-lg-3 col-md-6 col-sm-6">
+                <div class="benefit-block_one-inner">
+                    <div class="benefit-block_one-pattern" style="background-image: url({{ asset('images/background/benefit-block_pattern.png') }})"></div>
+                    <div class="benefit-block_one-color"></div>
+                    <div class="benefit-block_one-icon flaticon-technical-support"></div>
+                    <h4 class="benefit-block_one-heading"><a href="{{ route('contact') }}">Great Fast <br> Support 24/7</a></h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+@if(isset($homePlans) && $homePlans->isNotEmpty() || isset($businessPlans) && $businessPlans->isNotEmpty())
+<section class="service-one packages-section packages-section--elegant" style="margin-top: 0 !important; padding-top: 5rem; padding-bottom: 5rem; background: linear-gradient(180deg, rgba(2, 101, 203, 0.04) 0%, rgba(2, 101, 203, 0.02) 50%, transparent 100%);">
+    <div class="auto-container">
+        <div class="sec-title text-center packages-head">
+            <div class="sec-title_title packages-head__label">Our Plans</div>
+            <h2 class="sec-title_heading packages-head__title">Internet Packages</h2>
+            <div class="packages-head__line"></div>
+            <p class="sec-title_text packages-head__text">Choose the right speed for your home or business. Transparent pricing, no hidden fees.</p>
+        </div>
+
+        @if(isset($homePlans) && $homePlans->isNotEmpty())
+        <div class="packages-subsection" style="margin-bottom: 2.5rem;">
+            <h3 class="packages-subtitle packages-subtitle--home">Home Internet</h3>
+            <div class="row packages-row">
+                @foreach($homePlans->take(3) as $plan)
+                <div class="col-lg-4 col-md-6 col-sm-12 packages-col">
+                    <div class="package-card">
+                        <div class="package-card__body">
+                            <h4 class="package-card__title">{{ $plan->name }}</h4>
+                            <div class="package-card__price">{{ $plan->currency ?? 'KES' }} {{ number_format($plan->price) }}<span class="package-card__period">/mo</span></div>
+                            @if($plan->speed)<p class="package-card__speed">{{ $plan->speed }}</p>@endif
+                            @if(!empty($plan->features_list))
+                            <ul class="package-card__features">
+                                @foreach(array_slice(is_array($plan->features_list) ? $plan->features_list : [], 0, 3) as $feature)<li>{{ $feature }}</li>@endforeach
+                            </ul>
+                            @endif
+                        </div>
+                        <div class="package-card__footer">
+                            <a href="#" class="package-card__cta js-open-apply-modal">Apply for connection</a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <p class="packages-view-all"><a href="{{ route('home-internet') }}">View all home internet plans</a></p>
+        </div>
         @endif
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="section section-alt section--vibrant scroll-animate" id="packages">
-  <div class="container">
-    <h2 class="section-title section-title--gradient">Internet Packages</h2>
-    <p class="section-subtitle">Choose from our home and business plans. All packages include reliable connectivity and support.</p>
-
-    <h3 class="packages-subtitle">Home Internet</h3>
-    <div class="plans-grid plans-grid--home">
-      @forelse($homePlans as $plan)
-      <div class="plan-card plan-card--home {{ $plan->is_highlighted ? 'plan-card--featured' : '' }}">
-        @if($plan->show_image ?? true)
-          <div class="plan-card__image-wrap">
-            @if($plan->image)
-              <img src="{{ asset('storage/' . $plan->image) }}" alt="" class="plan-card__image" width="400" height="220" loading="lazy" decoding="async">
-            @else
-              <div class="plan-card__image plan-card__image--placeholder" aria-hidden="true"><span>Plan image</span></div>
-            @endif
-          </div>
+        @if(isset($businessPlans) && $businessPlans->isNotEmpty())
+        <div class="packages-subsection">
+            <h3 class="packages-subtitle packages-subtitle--business">Business Internet</h3>
+            <div class="row packages-row">
+                @foreach($businessPlans->take(3) as $plan)
+                <div class="col-lg-4 col-md-6 col-sm-12 packages-col">
+                    <div class="package-card">
+                        <div class="package-card__body">
+                            <h4 class="package-card__title">{{ $plan->name }}</h4>
+                            <div class="package-card__price">{{ $plan->currency ?? 'KES' }} {{ number_format($plan->price) }}<span class="package-card__period">/mo</span></div>
+                            @if($plan->speed)<p class="package-card__speed">{{ $plan->speed }}</p>@endif
+                            @if(!empty($plan->features_list))
+                            <ul class="package-card__features">
+                                @foreach(array_slice(is_array($plan->features_list) ? $plan->features_list : [], 0, 3) as $feature)<li>{{ $feature }}</li>@endforeach
+                            </ul>
+                            @endif
+                        </div>
+                        <div class="package-card__footer">
+                            <a href="#" class="package-card__cta js-open-apply-modal">Apply for connection</a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            <p class="packages-view-all packages-view-all--last" style="margin-bottom: 0; padding-bottom: 2rem;"><a href="{{ route('business-internet') }}">View all business internet plans</a></p>
+        </div>
         @endif
-        @if($plan->badge)<span class="plan-card__badge">{{ $plan->badge }}</span>@endif
-        <h3>{{ $plan->name }}</h3>
-        <p class="price-tag">{{ $plan->currency }} {{ number_format($plan->price) }}<small>/mo</small></p>
-        @if($plan->speed)<p class="plan-card__speed">{{ $plan->speed }}</p>@endif
-        <ul>
-          @foreach($plan->features_list as $feature)
-          <li>{{ $feature }}</li>
-          @endforeach
-        </ul>
-        <a href="#" class="btn {{ $plan->is_highlighted ? 'btn-primary' : 'btn-secondary' }} js-open-apply-modal">Apply</a>
-      </div>
-      @empty
-      <p class="packages-empty">Home plans coming soon. <a href="{{ route('contact') }}#apply">Contact us</a> for details.</p>
-      @endforelse
     </div>
-    <p class="packages-link"><a href="{{ route('home-internet') }}">View all home internet plans →</a></p>
-
-    <h3 class="packages-subtitle">Business Internet</h3>
-    <div class="plans-grid plans-grid--home">
-      @forelse($businessPlans as $plan)
-      <div class="plan-card plan-card--business {{ $plan->is_highlighted ? 'plan-card--featured' : '' }}">
-        @if($plan->show_image ?? true)
-          <div class="plan-card__image-wrap">
-            @if($plan->image)
-              <img src="{{ asset('storage/' . $plan->image) }}" alt="" class="plan-card__image" width="400" height="220" loading="lazy" decoding="async">
-            @else
-              <div class="plan-card__image plan-card__image--placeholder" aria-hidden="true"><span>Plan image</span></div>
-            @endif
-          </div>
-        @endif
-        @if($plan->badge)<span class="plan-card__badge">{{ $plan->badge }}</span>@endif
-        <h3>{{ $plan->name }}</h3>
-        <p class="price-tag">{{ $plan->currency }} {{ number_format($plan->price) }}<small>/mo</small></p>
-        @if($plan->speed)<p class="plan-card__speed">{{ $plan->speed }}</p>@endif
-        <ul>
-          @foreach($plan->features_list as $feature)
-          <li>{{ $feature }}</li>
-          @endforeach
-        </ul>
-        <a href="#" class="btn {{ $plan->is_highlighted ? 'btn-primary' : 'btn-secondary' }} js-open-apply-modal">Apply</a>
-      </div>
-      @empty
-      <p class="packages-empty">Business plans coming soon. <a href="{{ route('contact') }}#apply">Contact us</a> for details.</p>
-      @endforelse
-    </div>
-    <p class="packages-link"><a href="{{ route('business-internet') }}">View all business internet plans →</a></p>
-  </div>
 </section>
 
-<section class="section section--vibrant scroll-animate">
-  <div class="container">
-    <h2 class="section-title section-title--gradient">Why Choose Livenet Solutions</h2>
-    <p class="section-subtitle">We focus on speed, reliability, and support so you can focus on what matters.</p>
-    <div class="feature-grid feature-grid--three">
-      <div class="feature-card feature-card--vibrant">
-        <div class="icon icon--vibrant icon--fast" aria-hidden="true">⚡</div>
-        <h3>Fast & Reliable</h3>
-        <p>Our network is built for speed. If your connection is slow or down, you're losing time and money—we keep you online.</p>
-      </div>
-      <div class="feature-card feature-card--vibrant">
-        <div class="icon icon--vibrant icon--secure" aria-hidden="true">🛡️</div>
-        <h3>Secure & Stable</h3>
-        <p>Enterprise-grade security and redundant links so your data and uptime are protected.</p>
-      </div>
-      <div class="feature-card feature-card--vibrant">
-        <div class="icon icon--vibrant icon--support" aria-hidden="true">📞</div>
-        <h3>24/7 Expert Support</h3>
-        <p>Real people, real help. Our support team is available around the clock when you need us.</p>
-      </div>
+<!--  -->
+<section class="counter-one" style="padding-bottom: 6rem;">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="counter-block_one col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                <div class="counter-block_one-inner wow flipInX" data-wow-delay="0ms" data-wow-duration="1500ms">
+                    <span class="counter-block_one-icon flaticon-handshake"></span>
+                    <div class="counter-block_one-counter"><span class="odometer" data-count="5"></span>+</div>
+                    <div class="counter-block_one-text">Years of Experience</div>
+                </div>
+            </div>
+            <div class="counter-block_one col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                <div class="counter-block_one-inner wow flipInX" data-wow-delay="150ms" data-wow-duration="1500ms">
+                    <span class="counter-block_one-icon flaticon-experience"></span>
+                    <div class="counter-block_one-counter"><span class="odometer" data-count="2000"></span>+</div>
+                    <div class="counter-block_one-text">{{ $siteSettings['stat_2_label'] ?? 'Happy Clients' }}</div>
+                </div>
+            </div>
+            <div class="counter-block_one col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                <div class="counter-block_one-inner wow flipInX" data-wow-delay="300ms" data-wow-duration="1500ms">
+                    <span class="counter-block_one-icon flaticon-traffic-data"></span>
+                    <div class="counter-block_one-counter"><span class="odometer" data-count="200"></span>+</div>
+                    <div class="counter-block_one-text">Fiber Connection</div>
+                </div>
+            </div>
+            <div class="counter-block_one col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                <div class="counter-block_one-inner wow flipInX" data-wow-delay="450ms" data-wow-duration="1500ms">
+                    <span class="counter-block_one-icon flaticon-internet-1"></span>
+                    <div class="counter-block_one-counter"><span class="odometer" data-count="20"></span>+</div>
+                    <div class="counter-block_one-text">Connected businesses</div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
 
-<section class="section testimonials testimonials--vibrant scroll-animate">
-  <div class="container">
-    <h2 class="section-title section-title--gradient">What Our Customers Say</h2>
-    <p class="section-subtitle">Thousands of homes and businesses trust Livenet Solutions for their internet.</p>
-    <div class="testimonial-grid">
-      <div class="testimonial-card testimonial-card--vibrant">
-        <div class="testimonial-card__accent"></div>
-        <p class="quote">"Switched to Livenet six months ago. Zero outages, and the speed is exactly what they promised. Best decision we made for our home office."</p>
-        <p class="author">Sarah M.</p>
-        <p class="role">Home customer, Nairobi</p>
-      </div>
-      <div class="testimonial-card testimonial-card--vibrant">
-        <div class="testimonial-card__accent"></div>
-        <p class="quote">"Our business runs on the internet. Livenet's SLA and dedicated support give us peace of mind. Highly recommend for any company."</p>
-        <p class="author">James K.</p>
-        <p class="role">IT Director, TechFlow Inc.</p>
-      </div>
-      <div class="testimonial-card testimonial-card--vibrant">
-        <div class="testimonial-card__accent"></div>
-        <p class="quote">"Fast installation, clear pricing, no hidden fees. Support actually answers the phone. Refreshing experience."</p>
-        <p class="author">Maria L.</p>
-        <p class="role">Small business owner</p>
-      </div>
-    </div>
-    <div class="stats-row stats-row--vibrant">
-      <div class="stat stat--vibrant"><span class="number">{{ $siteSettings['stat_1_number'] ?? '99.9%' }}</span><span class="label">{{ $siteSettings['stat_1_label'] ?? 'Uptime SLA' }}</span></div>
-      <div class="stat stat--vibrant"><span class="number">{{ $siteSettings['stat_2_number'] ?? '50K+' }}</span><span class="label">{{ $siteSettings['stat_2_label'] ?? 'Happy Customers' }}</span></div>
-      <div class="stat stat--vibrant"><span class="number">{{ $siteSettings['stat_3_number'] ?? '24/7' }}</span><span class="label">{{ $siteSettings['stat_3_label'] ?? 'Support' }}</span></div>
-    </div>
-  </div>
-</section>
 
-<section class="cta-strip cta-strip--vibrant scroll-animate">
-  <div class="container">
-    <h2>Ready to Get Connected?</h2>
-    <p>Apply for connection today and enjoy fast, reliable internet at home or at work.</p>
-    <a href="{{ route('contact') }}#apply" class="btn btn-secondary btn-cta-glow">Apply for Connection</a>
-  </div>
-</section>
-</div>
+@push('styles')
+<style>
+/* Section background & heading */
+.packages-section--elegant .packages-head__label {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--main-color, #0265cb);
+    margin-bottom: 0.35rem;
+    font-weight: 600;
+}
+.packages-section--elegant .packages-head__title {
+    margin-bottom: 0.5rem;
+    color: #111827;
+    font-weight: 700;
+}
+.packages-section--elegant .packages-head__line {
+    width: 48px;
+    height: 3px;
+    margin: 0 auto 0.85rem;
+    background: linear-gradient(90deg, var(--main-color, #0265cb), rgba(2, 101, 203, 0.5));
+    border-radius: 2px;
+}
+.packages-section--elegant .packages-head__text {
+    max-width: 520px;
+    margin: 0 auto 2rem;
+    color: #6b7280;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+.packages-section--elegant .packages-subtitle {
+    font-size: 0.8125rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    padding-bottom: 0.35rem;
+    border-bottom: 2px solid rgba(2, 101, 203, 0.2);
+    display: inline-block;
+}
+.packages-section--elegant .packages-subtitle--home,
+.packages-section--elegant .packages-subtitle--business {
+    color: var(--main-color, #0265cb);
+}
 
+/* Grid */
+.packages-section--elegant .packages-row {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+}
+.packages-section--elegant .packages-col {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    margin-bottom: 1rem;
+}
+@media (min-width: 768px) {
+    .packages-section--elegant .packages-row { margin-left: -0.65rem; margin-right: -0.65rem; }
+    .packages-section--elegant .packages-col { padding-left: 0.65rem; padding-right: 0.65rem; margin-bottom: 1.25rem; }
+}
+@media (min-width: 992px) {
+    .packages-section--elegant .packages-row { margin-left: -0.75rem; margin-right: -0.75rem; }
+    .packages-section--elegant .packages-col { padding-left: 0.75rem; padding-right: 0.75rem; margin-bottom: 1.25rem; }
+}
+
+/* Cards */
+.packages-section--elegant .package-card {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(2, 101, 203, 0.06);
+    border: 1px solid rgba(2, 101, 203, 0.08);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.packages-section--elegant .package-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--main-color, #0265cb), rgba(2, 101, 203, 0.6));
+    opacity: 0.9;
+}
+.packages-section--elegant .package-card:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08), 0 16px 40px rgba(2, 101, 203, 0.1);
+    transform: translateY(-3px);
+    border-color: rgba(2, 101, 203, 0.18);
+}
+.packages-section--elegant .package-card__body {
+    padding: 1.2rem 1.25rem;
+    flex: 1;
+    padding-top: 1.35rem;
+}
+.packages-section--elegant .package-card__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.02em;
+}
+.packages-section--elegant .package-card__price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--main-color, #0265cb);
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.02em;
+}
+.packages-section--elegant .package-card__period {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #6b7280;
+}
+.packages-section--elegant .package-card__speed {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0 0 0.65rem;
+    line-height: 1.4;
+}
+.packages-section--elegant .package-card__features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.875rem;
+    color: #4b5563;
+    line-height: 1.6;
+}
+.packages-section--elegant .package-card__features li {
+    padding: 0.2rem 0;
+    padding-left: 1.25rem;
+    position: relative;
+}
+.packages-section--elegant .package-card__features li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--main-color, #0265cb);
+}
+.packages-section--elegant .package-card__footer {
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid rgba(2, 101, 203, 0.08);
+    background: linear-gradient(180deg, rgba(2, 101, 203, 0.04) 0%, rgba(2, 101, 203, 0.02) 100%);
+}
+.packages-section--elegant .package-card__cta {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--main-color, #0265cb);
+    text-decoration: none;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+}
+.packages-section--elegant .package-card__cta:hover {
+    color: #025bb5;
+    padding-left: 4px;
+}
+.packages-section--elegant .packages-view-all {
+    text-align: center;
+    margin-top: 1.1rem;
+    margin-bottom: 0;
+}
+.packages-section--elegant .packages-view-all a {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--main-color, #0265cb);
+    text-decoration: none;
+    transition: color 0.2s ease, letter-spacing 0.2s ease;
+}
+.packages-section--elegant .packages-view-all a:hover {
+    color: #025bb5;
+    letter-spacing: 0.02em;
+}
+</style>
+@endpush
+@endif
 @endsection

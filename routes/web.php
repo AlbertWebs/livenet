@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\CoverageController;
 use App\Http\Controllers\Admin\ConnectionApplicationController;
 use App\Http\Controllers\HomeController;
+use App\Models\Article;
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -60,7 +61,21 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::view('/home-internet', 'home-internet')->name('home-internet');
 Route::view('/business-internet', 'business-internet')->name('business-internet');
 Route::view('/our-coverage', 'our-coverage')->name('our-coverage');
-Route::view('/articles', 'articles')->name('articles');
+Route::view('/business-communication', 'business-communication')->name('business-communication');
+Route::get('/articles', function () {
+    $articles = Article::where('status', 'published')
+        ->whereNotNull('published_at')
+        ->where('published_at', '<=', now())
+        ->orderByDesc('published_at')
+        ->paginate(9);
+    return view('articles', compact('articles'));
+})->name('articles');
+Route::get('/articles/{article:slug}', function (Article $article) {
+    if ($article->status !== 'published' || ! $article->published_at || $article->published_at->isFuture()) {
+        abort(404);
+    }
+    return view('article', compact('article'));
+})->name('articles.show');
 Route::view('/about', 'about')->name('about');
 Route::get('/contact', fn () => view('contact'))->name('contact');
 Route::post('/contact', function (Request $request) {

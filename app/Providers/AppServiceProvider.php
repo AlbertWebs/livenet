@@ -33,6 +33,14 @@ class AppServiceProvider extends ServiceProvider
             $view->with('homePlans', InternetPlan::where('type', 'home')->orderBy('sort_order')->get());
         });
 
+        View::composer('business-internet', function ($view) {
+            if (! Schema::hasTable('internet_plans')) {
+                $view->with('businessPlans', collect());
+                return;
+            }
+            $view->with('businessPlans', InternetPlan::where('type', 'business')->orderBy('sort_order')->get());
+        });
+
         View::composer('home', function ($view) {
             if (! Schema::hasTable('internet_plans')) {
                 $view->with('businessPlans', collect());

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@yield('title', 'Livenet Solutions')</title>
+  <meta name="description" content="@yield('meta_description', 'Fast, reliable internet for home and business.')">
+  @yield('meta_extra')
+  @hasSection('og_title')
+    <meta property="og:title" content="@yield('og_title')">
+    <meta property="og:description" content="@yield('og_description')">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    @hasSection('og_image')
+    <meta property="og:image" content="@yield('og_image')">
+    <meta property="og:image:secure_url" content="@yield('og_image')">
+    <meta property="og:image:width" content="@yield('og_image_width', '1200')">
+    <meta property="og:image:height" content="@yield('og_image_height', '630')">
+    <meta property="og:image:alt" content="@yield('og_image_alt', 'Livenet Solutions')">
+    @endif
+    <meta property="og:site_name" content="@yield('og_site_name', $siteSettings['site_name'] ?? 'Livenet Solutions')">
+    <meta property="og:locale" content="@yield('og_locale', 'en_KE')">
+    <meta name="twitter:card" content="@yield('twitter_card', 'summary_large_image')">
+    <meta name="twitter:title" content="@yield('og_title')">
+    <meta name="twitter:description" content="@yield('og_description')">
+    @hasSection('og_image')
+    <meta name="twitter:image" content="@yield('og_image')">
+    <meta name="twitter:image:alt" content="@yield('og_image_alt', 'Livenet Solutions')">
+    @endif
+  @endif
+  <link rel="canonical" href="@yield('canonical', url()->current())">
+  <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+  @vite(['resources/css/site.css', 'resources/js/site.js'])
+  @stack('styles')
+  @yield('jsonld')
+<style>
+  .page-preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #0a1628;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+  .page-preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .page-preloader__wifi {
+    width: 80px;
+    height: 80px;
+    animation: preloader-pulse 1.2s ease-in-out infinite;
+  }
+  .page-preloader__wifi path {
+    fill: none;
+    stroke: #00a3e0;
+    stroke-width: 3;
+    stroke-linecap: round;
+  }
+  .page-preloader__wifi path:first-of-type {
+    fill: #00a3e0;
+    stroke: none;
+  }
+  .page-preloader__text {
+    color: rgba(255,255,255,0.8);
+    font-size: 14px;
+    font-family: inherit;
+  }
+  @keyframes preloader-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.08); }
+  }
+
+  /* Scroll-triggered animations */
+  .scroll-animate {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .scroll-animate.is-in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .scroll-animate--left { transform: translateX(-32px) translateY(0); }
+  .scroll-animate--left.is-in-view { transform: translateX(0) translateY(0); }
+  .scroll-animate--right { transform: translateX(32px) translateY(0); }
+  .scroll-animate--right.is-in-view { transform: translateX(0) translateY(0); }
+  .scroll-animate--scale { transform: translateY(0) scale(0.96); }
+  .scroll-animate--scale.is-in-view { transform: translateY(0) scale(1); }
+  .scroll-animate[data-scroll-delay] { transition-delay: calc(var(--scroll-delay, 0) * 1ms); }
+</style>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/69a3d5aa52cbb51c37095535/1jijvl9fc';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+</head>
+<body id="top">
+  <div class="page-preloader" id="page-preloader" aria-hidden="true">
+    <svg class="page-preloader__wifi" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M32 44a4 4 0 1 1 0 8 4 4 0 0 1 0-8z"/>
+      <path d="M32 28c-6.6 0-12.6 2.6-17 6.8l2.8 2.8A14 14 0 0 1 32 32c5.2 0 9.8 2.1 13.2 5.4l2.8-2.8A22 22 0 0 0 32 28z"/>
+      <path d="M32 16C20.4 16 10.2 21.4 4 29.2l2.8 2.8C12.4 25 21.2 20 32 20s19.6 5 25.2 12l2.8-2.8C53.8 21.4 43.6 16 32 16z"/>
+      <path d="M32 4C16.5 4 3.2 12.2 0 24l2.8 2.8C5.6 15.2 17.8 8 32 8s26.4 7.2 29.2 18.8L64 24C60.8 12.2 47.5 4 32 4z"/>
+    </svg>
+    <span class="page-preloader__text">Connecting...</span>
+  </div>
+  @include('partials.top-bar')
+  @include('partials.header')
+
+  <main>
+    @yield('content')
+  </main>
+
+  @include('partials.footer')
+  @include('partials.bottom-nav')
+  @include('partials.apply-modal')
+
+  <a href="#top" class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 15l-6-6-6 6"/></svg>
+  </a>
+
+  <script>
+    window.addEventListener('load', function() {
+      var preloader = document.getElementById('page-preloader');
+      if (preloader) preloader.classList.add('hidden');
+    });
+    document.getElementById('menu-toggle')?.addEventListener('click', function() {
+      var menu = document.getElementById('nav-menu');
+      var open = menu?.classList.toggle('open');
+      this.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    window.addEventListener('scroll', function() {
+      var h = document.getElementById('main-header');
+      if (h) h.classList.toggle('scrolled', window.scrollY > 20);
+      var b2t = document.getElementById('back-to-top');
+      if (b2t) b2t.classList.toggle('visible', window.scrollY > 300);
+    });
+
+    (function scrollAnimate() {
+      var els = document.querySelectorAll('.scroll-animate');
+      if (!els.length) return;
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          var el = entry.target;
+          var delay = el.getAttribute('data-scroll-delay');
+          if (delay) el.style.setProperty('--scroll-delay', delay);
+          el.classList.add('is-in-view');
+        });
+      }, { rootMargin: '0px 0px -8% 0px', threshold: 0 });
+      els.forEach(function(el) { io.observe(el); });
+    })();
+
+    (function lazyImages() {
+      document.querySelectorAll('img[loading="lazy"]').forEach(function(img) {
+        if (img.complete) img.classList.add('loaded');
+        else img.addEventListener('load', function() { img.classList.add('loaded'); });
+      });
+    })();
+  </script>
+  @stack('scripts')
+</body>
+</html>

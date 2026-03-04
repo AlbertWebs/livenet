@@ -10,7 +10,8 @@ class SiteSettingController extends Controller
 {
     public function index()
     {
-        $keys = ['site_name', 'logo', 'favicon', 'og_image', 'home_services_section_image', 'home_decor_image_1', 'home_decor_image_2', 'home_intro_text', 'contact_email', 'phone', 'address', 'facebook_url', 'twitter_url', 'linkedin_url', 'seo_meta_title', 'seo_meta_description', 'map_embed_url', 'stat_1_number', 'stat_1_label', 'stat_2_number', 'stat_2_label', 'stat_3_number', 'stat_3_label'];
+        $keys = ['site_name', 'logo', 'favicon', 'og_image', 'home_services_section_image', 'home_decor_image_1', 'home_decor_image_2', 'about_section_image_1', 'about_section_image_2', 'home_intro_text', 'contact_email', 'phone', 'address', 'facebook_url', 'twitter_url', 'linkedin_url', 'instagram_url', 'seo_meta_title', 'seo_meta_description', 'map_embed_url', 'stat_1_number', 'stat_1_label', 'stat_2_number', 'stat_2_label', 'stat_3_number', 'stat_3_label',
+            'home_internet_hero_video', 'home_internet_hero_poster', 'home_internet_hero_pattern', 'home_internet_about_image', 'home_internet_about_curve_1', 'home_internet_about_curve_2', 'home_internet_about_pattern', 'home_internet_facility_image', 'home_internet_facility_package', 'home_internet_facility_pattern', 'home_internet_price_pattern'];
         $settings = [];
         foreach ($keys as $key) {
             $settings[$key] = SiteSetting::get($key);
@@ -28,6 +29,7 @@ class SiteSettingController extends Controller
             'facebook_url' => 'nullable|url',
             'twitter_url' => 'nullable|url',
             'linkedin_url' => 'nullable|url',
+            'instagram_url' => 'nullable|url',
             'seo_meta_title' => 'nullable|string|max:255',
             'seo_meta_description' => 'nullable|string|max:500',
             'map_embed_url' => 'nullable|string',
@@ -43,9 +45,22 @@ class SiteSettingController extends Controller
             'home_services_section_image' => 'nullable|image|max:2048',
             'home_decor_image_1' => 'nullable|image|max:2048',
             'home_decor_image_2' => 'nullable|image|max:2048',
+            'about_section_image_1' => 'nullable|image|max:2048',
+            'about_section_image_2' => 'nullable|image|max:2048',
             'home_intro_text' => 'nullable|string|max:2000',
+            'home_internet_hero_video' => 'nullable|file|mimetypes:video/mp4|max:51200',
+            'home_internet_hero_poster' => 'nullable|image|max:2048',
+            'home_internet_hero_pattern' => 'nullable|image|max:2048',
+            'home_internet_about_image' => 'nullable|image|max:2048',
+            'home_internet_about_curve_1' => 'nullable|image|max:2048',
+            'home_internet_about_curve_2' => 'nullable|image|max:2048',
+            'home_internet_about_pattern' => 'nullable|image|max:2048',
+            'home_internet_facility_image' => 'nullable|image|max:2048',
+            'home_internet_facility_package' => 'nullable|image|max:2048',
+            'home_internet_facility_pattern' => 'nullable|image|max:2048',
+            'home_internet_price_pattern' => 'nullable|image|max:2048',
         ]);
-        $data = $request->only(['site_name', 'contact_email', 'phone', 'address', 'facebook_url', 'twitter_url', 'linkedin_url', 'seo_meta_title', 'seo_meta_description', 'map_embed_url', 'stat_1_number', 'stat_1_label', 'stat_2_number', 'stat_2_label', 'stat_3_number', 'stat_3_label', 'home_intro_text']);
+        $data = $request->only(['site_name', 'contact_email', 'phone', 'address', 'facebook_url', 'twitter_url', 'linkedin_url', 'instagram_url', 'seo_meta_title', 'seo_meta_description', 'map_embed_url', 'stat_1_number', 'stat_1_label', 'stat_2_number', 'stat_2_label', 'stat_3_number', 'stat_3_label', 'home_intro_text']);
         foreach ($data as $key => $value) {
             SiteSetting::set($key, $value ?? '');
         }
@@ -64,12 +79,19 @@ class SiteSettingController extends Controller
         } elseif ($request->hasFile('og_image')) {
             SiteSetting::set('og_image', $request->file('og_image')->store('settings', 'public'));
         }
-        foreach (['home_services_section_image', 'home_decor_image_1', 'home_decor_image_2'] as $imgKey) {
+        $imageKeys = ['home_services_section_image', 'home_decor_image_1', 'home_decor_image_2', 'about_section_image_1', 'about_section_image_2',
+            'home_internet_hero_poster', 'home_internet_hero_pattern', 'home_internet_about_image', 'home_internet_about_curve_1', 'home_internet_about_curve_2', 'home_internet_about_pattern', 'home_internet_facility_image', 'home_internet_facility_package', 'home_internet_facility_pattern', 'home_internet_price_pattern'];
+        foreach ($imageKeys as $imgKey) {
             if ($request->boolean('remove_' . $imgKey)) {
                 SiteSetting::set($imgKey, '');
             } elseif ($request->hasFile($imgKey)) {
                 SiteSetting::set($imgKey, $request->file($imgKey)->store('settings', 'public'));
             }
+        }
+        if ($request->boolean('remove_home_internet_hero_video')) {
+            SiteSetting::set('home_internet_hero_video', '');
+        } elseif ($request->hasFile('home_internet_hero_video')) {
+            SiteSetting::set('home_internet_hero_video', $request->file('home_internet_hero_video')->store('settings', 'public'));
         }
         return redirect()->route('admin.settings.index')->with('success', 'Settings updated.');
     }

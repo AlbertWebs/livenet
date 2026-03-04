@@ -1,126 +1,120 @@
 @extends('layouts.app')
 
-@section('title', 'Articles & Blog | Livenet Solutions – Internet Tips & News')
-@section('meta_description', 'Read articles on home internet, business connectivity, WiFi tips, and industry news from Livenet Solutions.')
-
-@section('jsonld')
-@verbatim
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ url('/') }}" },
-    { "@type": "ListItem", "position": 2, "name": "Articles", "item": "{{ route('articles') }}" }
-  ]
-}
-</script>
-@endverbatim
-@endsection
+@section('title', 'Articles | ' . ($siteSettings['site_name'] ?? 'Livenet Solutions'))
+@section('meta_description', 'Tips, guides, and news about internet and connectivity.')
 
 @section('content')
-<section class="page-hero scroll-animate">
-  <div class="container">
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href="{{ route('home') }}">Home</a> / Articles
-    </nav>
-    <h1>Articles</h1>
-    <p>Tips, guides, and news about internet, connectivity, and getting the most from your connection.</p>
-  </div>
+{{-- Hero (matches about / contact) --}}
+<section class="slider-two" id="top">
+    <div class="swiper_carousel swiper-container" data-swiper='{"spaceBetween":0,"slidesPerView":1}'>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="slider-two_image" style="background-image: url({{ asset('bg-2.jpg') }});"></div>
+                <div class="slider-two_pattern" style="background-image: url({{ asset('images/main-slider/slider-two_pattern.png') }})"></div>
+                <div class="auto-container">
+                    <div class="slider-two_content-column">
+                        <div class="slider-two_content-inner">
+                            <nav class="slider-two_breadcrumb" aria-label="Breadcrumb">
+                                <a href="{{ route('home') }}">Home</a> / Articles
+                            </nav>
+                            <div class="slider-two_title">Tips &amp; insights</div>
+                            <h1 class="slider-two_heading">Articles</h1>
+                            <p class="slider-two_text" style="max-width: 520px; margin-top: 20px; margin-bottom: 0; color: rgba(255,255,255,0.9); font-size: 18px; line-height: 1.5;">Tips, guides, and news about internet and getting the most from your connection.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
-<section class="section scroll-animate">
-  <div class="container">
-    <div class="articles-toolbar">
-      <div class="search-wrap">
-        <input type="search" id="article-search" placeholder="Search articles..." aria-label="Search articles">
-      </div>
-      <div class="categories" role="navigation" aria-label="Article categories">
-        <a href="{{ route('articles') }}" class="active">All</a>
-        <a href="{{ route('articles') }}?category=home">Home Internet</a>
-        <a href="{{ route('articles') }}?category=business">Business</a>
-        <a href="{{ route('articles') }}?category=tips">Tips & How-To</a>
-        <a href="{{ route('articles') }}?category=news">News</a>
-      </div>
-    </div>
+<section class="articles-list py-5">
+    <div class="auto-container">
+        <div class="sec-title centered">
+            <div class="sec-title_title">latest</div>
+            <h2 class="sec-title_heading">Latest Articles</h2>
+        </div>
 
-    <div class="articles-grid">
-      <article class="article-card">
-        <div class="thumb" role="img" aria-label="Article about home WiFi">📡</div>
-        <div class="content">
-          <p class="meta">Home Internet · Feb 20, 2025</p>
-          <h3><a href="#">How to Get the Best WiFi Coverage in Your Home</a></h3>
-          <p>Simple steps to place your router and extend coverage so every room stays connected.</p>
+        @if($articles->isNotEmpty())
+        <div class="articles-grid">
+            @foreach($articles as $article)
+            <article class="article-card">
+                <a href="{{ route('articles.show', $article) }}" class="article-card_image-link">
+                    @if($article->featured_image)
+                    <div class="article-card_image" style="background-image: url({{ asset('storage/' . $article->featured_image) }});"></div>
+                    @else
+                    <div class="article-card_image article-card_image--placeholder">
+                        <i class="fa-solid fa-newspaper" aria-hidden="true"></i>
+                    </div>
+                    @endif
+                </a>
+                <div class="article-card_body">
+                    @if($article->category)
+                    <span class="article-card_category">{{ $article->category }}</span>
+                    @endif
+                    <h3 class="article-card_title">
+                        <a href="{{ route('articles.show', $article) }}">{{ $article->title }}</a>
+                    </h3>
+                    @if($article->excerpt)
+                    <p class="article-card_excerpt">{{ Str::limit($article->excerpt, 120) }}</p>
+                    @endif
+                    <div class="article-card_meta">
+                        <time datetime="{{ $article->published_at->toIso8601String() }}">{{ $article->published_at->format('M j, Y') }}</time>
+                        <a href="{{ route('articles.show', $article) }}" class="article-card_more">Read more <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </article>
+            @endforeach
         </div>
-      </article>
-      <article class="article-card">
-        <div class="thumb" role="img" aria-label="Article about business uptime">🏢</div>
-        <div class="content">
-          <p class="meta">Business · Feb 18, 2025</p>
-          <h3><a href="#">Why Your Business Needs an Internet SLA</a></h3>
-          <p>Understanding SLAs and uptime guarantees so your business stays online when it matters.</p>
+
+        @if($articles->hasPages())
+        <div class="articles-pagination">
+            {{ $articles->links() }}
         </div>
-      </article>
-      <article class="article-card">
-        <div class="thumb" role="img" aria-label="Article about speed test">⚡</div>
-        <div class="content">
-          <p class="meta">Tips & How-To · Feb 15, 2025</p>
-          <h3><a href="#">How to Run a Reliable Speed Test (And What the Numbers Mean)</a></h3>
-          <p>Get accurate results and learn what download speed, upload speed, and latency mean for you.</p>
+        @endif
+        @else
+        <div class="articles-empty">
+            <div class="articles-empty_icon"><i class="fa-solid fa-newspaper"></i></div>
+            <h3 class="articles-empty_title">No articles yet</h3>
+            <p class="articles-empty_text">Tips, guides, and news will appear here. Check back soon or explore our services.</p>
+            <a href="{{ route('home') }}" class="btn-style-one theme-btn">
+                <div class="btn-wrap">
+                    <span class="text-one">Back to Home</span>
+                    <span class="text-two">Back to Home</span>
+                </div>
+            </a>
         </div>
-      </article>
-      <article class="article-card">
-        <div class="thumb" role="img" aria-label="Article about fiber">🔌</div>
-        <div class="content">
-          <p class="meta">Home Internet · Feb 12, 2025</p>
-          <h3><a href="#">Fiber vs. Cable Internet: Which Is Right for You?</a></h3>
-          <p>Compare fiber and cable so you can choose the best option for your home or business.</p>
-        </div>
-      </article>
-      <article class="article-card">
-        <div class="thumb" role="img" aria-label="Article about remote work">💻</div>
-        <div class="content">
-          <p class="meta">Business · Feb 10, 2025</p>
-          <h3><a href="#">Remote Work Internet Requirements: A Quick Checklist</a></h3>
-          <p>Minimum speeds, latency, and stability tips for productive work-from-home setups.</p>
-        </div>
-      </article>
-      <article class="article-card">
-        <div class="thumb" role="img" aria-label="Article about security">🔒</div>
-        <div class="content">
-          <p class="meta">Tips & How-To · Feb 8, 2025</p>
-          <h3><a href="#">Securing Your Home Network in 5 Steps</a></h3>
-          <p>Strengthen your WiFi and router settings to keep your devices and data safe.</p>
-        </div>
-      </article>
-      <article class="article-card">
-        <div class="thumb" role="img" aria-label="Article about streaming">📺</div>
-        <div class="content">
-          <p class="meta">Home Internet · Feb 5, 2025</p>
-          <h3><a href="#">How Much Internet Speed Do You Need for Streaming?</a></h3>
-          <p>Recommendations for HD, 4K, and multiple streams so you can binge without the buffer.</p>
-        </div>
-      </article>
-      <article class="article-card">
-        <div class="thumb" role="img" aria-label="Article about expansion">🌐</div>
-        <div class="content">
-          <p class="meta">News · Feb 1, 2025</p>
-          <h3><a href="#">Livenet Expands Fiber to 12 New Neighborhoods</a></h3>
-          <p>We're bringing gigabit fiber to more homes. Check if your area is included.</p>
-        </div>
-      </article>
+        @endif
     </div>
-  </div>
 </section>
 @endsection
 
-@push('scripts')
-<script>
-  document.getElementById('article-search')?.addEventListener('input', function() {
-    var q = this.value.toLowerCase();
-    document.querySelectorAll('.article-card').forEach(function(card) {
-      card.style.display = card.textContent.toLowerCase().indexOf(q) >= 0 ? '' : 'none';
-    });
-  });
-</script>
+@push('styles')
+<style>
+.slider-two_breadcrumb { font-size: 14px; opacity: 0.9; margin-bottom: 12px; }
+.slider-two_breadcrumb a { color: rgba(255,255,255,0.95); text-decoration: none; }
+.slider-two_breadcrumb a:hover { text-decoration: underline; }
+.articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.75rem; margin-top: 2rem; }
+.article-card { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.06); transition: box-shadow 0.25s ease, transform 0.2s ease; }
+.article-card:hover { box-shadow: 0 12px 32px rgba(0,0,0,0.1); transform: translateY(-2px); }
+.article-card_image-link { display: block; text-decoration: none; }
+.article-card_image { height: 200px; background-size: cover; background-position: center; background-color: #e2e8f0; }
+.article-card_image--placeholder { display: flex; align-items: center; justify-content: center; color: #94a3b8; font-size: 3rem; }
+.article-card_body { padding: 1.25rem 1.5rem; }
+.article-card_category { display: inline-block; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--main-color, #0265cb); margin-bottom: 0.5rem; }
+.article-card_title { font-size: 1.15rem; font-weight: 700; margin: 0 0 0.5rem; line-height: 1.35; }
+.article-card_title a { color: #1e293b; text-decoration: none; }
+.article-card_title a:hover { color: var(--main-color, #0265cb); }
+.article-card_excerpt { font-size: 0.95rem; color: #64748b; line-height: 1.55; margin: 0 0 0.75rem; }
+.article-card_meta { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; font-size: 0.875rem; }
+.article-card_meta time { color: #94a3b8; }
+.article-card_more { color: var(--main-color, #0265cb); font-weight: 600; text-decoration: none; }
+.article-card_more:hover { text-decoration: underline; }
+.article-card_more i { margin-left: 0.25rem; font-size: 0.75rem; }
+.articles-pagination { margin-top: 2.5rem; display: flex; justify-content: center; }
+.articles-empty { text-align: center; padding: 3rem 1.5rem; max-width: 420px; margin: 2rem auto 0; }
+.articles-empty_icon { font-size: 3rem; color: #cbd5e1; margin-bottom: 1rem; }
+.articles-empty_title { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin: 0 0 0.5rem; }
+.articles-empty_text { color: #64748b; line-height: 1.6; margin: 0 0 1.5rem; }
+</style>
 @endpush
