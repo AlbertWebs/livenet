@@ -318,7 +318,7 @@
     font-size: 0.75rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--main-color, #0265cb);
+    color: var(--main-color, #338edf);
     margin-bottom: 0.35rem;
     font-weight: 600;
 }
@@ -331,7 +331,7 @@
     width: 48px;
     height: 3px;
     margin: 0 auto 0.85rem;
-    background: linear-gradient(90deg, var(--main-color, #0265cb), rgba(2, 101, 203, 0.5));
+    background: linear-gradient(90deg, var(--main-color, #338edf), rgba(51, 142, 223, 0.5));
     border-radius: 2px;
 }
 .packages-section--elegant .packages-head__text {
@@ -353,7 +353,7 @@
 }
 .packages-section--elegant .packages-subtitle--home,
 .packages-section--elegant .packages-subtitle--business {
-    color: var(--main-color, #0265cb);
+    color: var(--main-color, #338edf);
 }
 
 /* Grid */
@@ -395,7 +395,7 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, var(--main-color, #0265cb), rgba(2, 101, 203, 0.6));
+    background: linear-gradient(90deg, var(--main-color, #338edf), rgba(51, 142, 223, 0.6));
     opacity: 0.9;
 }
 .packages-section--elegant .package-card:hover {
@@ -418,7 +418,7 @@
 .packages-section--elegant .package-card__price {
     font-size: 1.5rem;
     font-weight: 700;
-    color: var(--main-color, #0265cb);
+    color: var(--main-color, #338edf);
     margin-bottom: 0.25rem;
     letter-spacing: -0.02em;
 }
@@ -454,7 +454,7 @@
     width: 5px;
     height: 5px;
     border-radius: 50%;
-    background: var(--main-color, #0265cb);
+    background: var(--main-color, #338edf);
 }
 .packages-section--elegant .package-card__footer {
     padding: 0.75rem 1.25rem;
@@ -465,12 +465,12 @@
     display: inline-block;
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--main-color, #0265cb);
+    color: var(--main-color, #338edf);
     text-decoration: none;
     transition: color 0.2s ease, padding-left 0.2s ease;
 }
 .packages-section--elegant .package-card__cta:hover {
-    color: #025bb5;
+    color: #2a7bc9;
     padding-left: 4px;
 }
 .packages-section--elegant .packages-view-all {
@@ -481,12 +481,12 @@
 .packages-section--elegant .packages-view-all a {
     font-size: 0.9375rem;
     font-weight: 600;
-    color: var(--main-color, #0265cb);
+    color: var(--main-color, #338edf);
     text-decoration: none;
     transition: color 0.2s ease, letter-spacing 0.2s ease;
 }
 .packages-section--elegant .packages-view-all a:hover {
-    color: #025bb5;
+    color: #2a7bc9;
     letter-spacing: 0.02em;
 }
 </style>

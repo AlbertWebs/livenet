@@ -97,16 +97,16 @@
 .about-intro_lead { font-size: 1.15rem; color: #1e293b; line-height: 1.7; margin-bottom: 1rem; }
 .about-intro p { color: #64748b; line-height: 1.7; margin: 0; }
 .about-values_grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 2rem; max-width: 960px; margin-left: auto; margin-right: auto; }
-.about-value-card { background: #f8fafc; padding: 1.75rem; border-radius: 12px; border-left: 4px solid var(--main-color, #0265cb); transition: box-shadow 0.2s ease; }
+.about-value-card { background: #f8fafc; padding: 1.75rem; border-radius: 12px; border-left: 4px solid var(--main-color, #338edf); transition: box-shadow 0.2s ease; }
 .about-value-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
-.about-value-card_icon { font-size: 1.5rem; color: var(--main-color, #0265cb); display: block; margin-bottom: 0.75rem; }
+.about-value-card_icon { font-size: 1.5rem; color: var(--main-color, #338edf); display: block; margin-bottom: 0.75rem; }
 .about-value-card h3 { font-size: 1.15rem; font-weight: 700; color: #1e293b; margin: 0 0 0.5rem; }
 .about-value-card p { font-size: 0.95rem; color: #64748b; line-height: 1.6; margin: 0; }
 .about-cta { text-align: center; padding: 2.5rem 1.5rem; margin-top: 2.5rem; background: linear-gradient(135deg, #e8f0fa 0%, #f0f6fc 100%); border-radius: 12px; }
 .about-cta_heading { font-size: 1.25rem; font-weight: 700; color: #1e293b; margin: 0 0 1rem; }
 .about-cta .theme-btn { margin-bottom: 0.75rem; }
 .about-cta_text { margin: 0; font-size: 1rem; color: #64748b; }
-.about-cta_text a { color: var(--main-color, #0265cb); font-weight: 600; text-decoration: none; }
+.about-cta_text a { color: var(--main-color, #338edf); font-weight: 600; text-decoration: none; }
 .about-cta_text a:hover { text-decoration: underline; }
 </style>
 @endpush

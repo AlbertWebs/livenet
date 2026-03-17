@@ -72,7 +72,7 @@
 .user-content h2 { font-size: 1.35rem; margin: 1.75rem 0 0.5rem; color: #1e293b; }
 .user-content h3 { font-size: 1.15rem; margin: 1.25rem 0 0.5rem; color: #1e293b; }
 .user-content ul, .user-content ol { margin: 0 0 1rem; padding-left: 1.5rem; }
-.user-content a { color: var(--main-color, #0265cb); text-decoration: none; }
+.user-content a { color: var(--main-color, #338edf); text-decoration: none; }
 .user-content a:hover { text-decoration: underline; }
 .article-single_footer { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #e2e8f0; }
 </style>

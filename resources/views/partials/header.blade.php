@@ -38,9 +38,9 @@
                     <div class="logo">
                         <a href="{{ route('home') }}">
                             @if(!empty($siteSettings['logo'] ?? null))
-                                <img src="{{ asset('storage/' . $siteSettings['logo']) }}" alt="{{ $siteName }}" title="" class="header-logo-img" style="max-height: 40px; width: auto;">
+                                <img src="{{ asset('storage/' . $siteSettings['logo']) }}" alt="{{ $siteName }}" title="" class="header-logo-img" style=" width: auto;">
                             @else
-                                <img src="{{ asset('images/logo.png') }}" alt="{{ $siteName }}" title="" class="header-logo-img" style="max-height: 40px; width: auto;">
+                                <img src="{{ asset('images/livenet-logo.png') }}" alt="{{ $siteName }}" title="" class="header-logo-img" style=" width: auto;">
                             @endif
                         </a>
                     </div>
@@ -62,7 +62,6 @@
                                 <li class="{{ request()->routeIs('our-coverage') ? 'current' : '' }}"><a href="{{ route('our-coverage') }}">Our Coverage</a></li>
                                 <li class="{{ request()->routeIs('business-communication') ? 'current' : '' }}"><a href="{{ route('business-communication') }}">Business Solutions</a></li>
                                 <li class="{{ request()->routeIs('about') ? 'current' : '' }}"><a href="{{ route('about') }}">About</a></li>
-                                <li class="{{ request()->routeIs('articles') ? 'current' : '' }}"><a href="{{ route('articles') }}">Articles</a></li>
                                 <li class="{{ request()->routeIs('contact') ? 'current' : '' }}"><a href="{{ route('contact') }}">Contact Us</a></li>
                             </ul>
                         </div>
@@ -94,9 +93,9 @@
             <div class="nav-logo">
                 <a href="{{ route('home') }}">
                     @if(!empty($siteSettings['logo'] ?? null))
-                        <img src="{{ asset('storage/' . $siteSettings['logo']) }}" alt="{{ $siteName }}" title="" class="header-logo-img" style="max-height: 40px; width: auto;">
+                        <img src="{{ asset('storage/' . $siteSettings['logo']) }}" alt="{{ $siteName }}" title="" class="header-logo-img" style="width: auto;">
                     @else
-                        <img src="{{ asset('images/logo.png') }}" alt="{{ $siteName }}" title="" class="header-logo-img" style="max-height: 40px; width: auto;">
+                        <img src="{{ asset('images/livenet-logo.png') }}" alt="{{ $siteName }}" title="" class="header-logo-img" style="width: auto;">
                     @endif
                 </a>
             </div>

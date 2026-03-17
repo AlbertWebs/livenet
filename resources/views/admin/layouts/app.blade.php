@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Admin') | Livenet CMS</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/livenet-favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('images/livenet-favicon.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen">
@@ -16,7 +18,7 @@
                         @if(!empty($siteSettings['favicon'] ?? null))
                             <img src="{{ asset('storage/' . $siteSettings['favicon']) }}" alt="" class="h-10 w-10 object-contain rounded-lg bg-white/10 p-1 shrink-0" aria-hidden="true">
                         @else
-                            <span class="h-10 w-10 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-lg shrink-0" aria-hidden="true">L</span>
+                            <img src="{{ asset('images/livenet-favicon.png') }}" alt="" class="h-10 w-10 object-contain rounded-lg bg-white/10 p-1 shrink-0" aria-hidden="true">
                         @endif
                         <span class="text-xl font-bold text-white tracking-tight">Livenet CMS</span>
                     </a>

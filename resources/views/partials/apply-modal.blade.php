@@ -81,7 +81,7 @@
   overflow: hidden;
 }
 .apply-modal__header {
-  background: linear-gradient(to right, var(--color-two, #0a2463) 0%, var(--main-color, #0265cb) 100%);
+  background: linear-gradient(to right, var(--color-two, #0a2463) 0%, var(--main-color, #338edf) 100%);
   color: #fff;
   padding: 1.35rem 1.5rem 1.1rem;
   padding-right: 2.75rem;
@@ -186,7 +186,7 @@
 }
 .apply-modal__input:focus {
   outline: none;
-  border-color: var(--main-color, #0265cb);
+  border-color: var(--main-color, #338edf);
   box-shadow: 0 0 0 3px rgba(2, 101, 203, 0.12);
   background: #fff;
 }
@@ -203,7 +203,7 @@
   font-size: 0.9375rem;
   font-weight: 600;
   color: #fff;
-  background: var(--main-color, #0265cb);
+  background: var(--main-color, #338edf);
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -211,7 +211,7 @@
   transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 .apply-modal__submit:hover {
-  background: #025bb5;
+  background: #2a7bc9;
   box-shadow: 0 4px 14px rgba(2, 101, 203, 0.35);
   transform: translateY(-1px);
 }

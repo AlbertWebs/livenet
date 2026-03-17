@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login | Livenet Solutions</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/livenet-favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('images/livenet-favicon.png') }}">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-md">
         <div class="bg-white rounded-xl shadow-lg p-8">
+            <div class="flex justify-center mb-4">
+                <img src="{{ asset('images/livenet-logo.png') }}" alt="Livenet Solutions" class="h-10 w-auto object-contain">
+            </div>
             <h1 class="text-2xl font-bold text-gray-800 text-center mb-2">Livenet Solutions</h1>
             <p class="text-gray-500 text-center text-sm mb-6">Admin Panel</p>
 

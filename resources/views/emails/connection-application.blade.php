@@ -6,6 +6,7 @@
     <title>New connection application</title>
 </head>
 <body style="font-family: sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+    <p style="margin-bottom: 1rem;"><img src="{{ url('images/livenet-logo.png') }}" alt="Livenet Solutions" style="max-height: 36px; width: auto;"></p>
     <h1 style="font-size: 1.25rem;">New Apply for Connection submission</h1>
     <p>The following application was submitted from the website.</p>
     <table style="width: 100%; border-collapse: collapse;">

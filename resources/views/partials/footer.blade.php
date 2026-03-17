@@ -18,9 +18,9 @@
                                     <div class="footer-logo">
                                         <a href="{{ route('home') }}">
                                             @if(!empty($siteSettings['logo'] ?? null))
-                                                <img src="{{ asset('storage/' . $siteSettings['logo']) }}" alt="{{ $siteName }}" title="" class="footer-logo-img" style="max-height: 36px; width: auto;">
+                                                <img src="{{ asset('storage/' . $siteSettings['logo']) }}" alt="{{ $siteName }}" title="" class="footer-logo-img" style=" width: auto;">
                                             @else
-                                                <img src="{{ asset('images/logo.png') }}" alt="{{ $siteName }}" title="" class="footer-logo-img" style="max-height: 36px; width: auto;">
+                                                <img src="{{ asset('images/livenet-logo.png') }}" alt="{{ $siteName }}" title="" class="footer-logo-img" style=" width: auto;">
                                             @endif
                                         </a>
                                     </div>
@@ -41,6 +41,7 @@
                                         <li><a href="{{ route('home-internet') }}">Home Internet</a></li>
                                         <li><a href="{{ route('business-internet') }}">Business Internet</a></li>
                                         <li><a href="{{ route('our-coverage') }}">Our Coverage</a></li>
+                                        <li><a href="{{ route('articles') }}">Articles</a></li>
                                         <li><a href="{{ route('contact') }}">Contact Us</a></li>
                                     </ul>
                                 </div>

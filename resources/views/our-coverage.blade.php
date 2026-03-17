@@ -138,7 +138,7 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 .coverage-locations_card:hover {
-  border-color: var(--main-color, #0265cb);
+  border-color: var(--main-color, #338edf);
   box-shadow: 0 4px 14px rgba(2, 101, 203, 0.12);
   transform: translateY(-2px);
 }
@@ -150,7 +150,7 @@
   align-items: center;
   justify-content: center;
   background: rgba(2, 101, 203, 0.08);
-  color: var(--main-color, #0265cb);
+  color: var(--main-color, #338edf);
   border-radius: 10px;
   font-size: 1.1rem;
 }
@@ -174,14 +174,14 @@
   padding: 0.65rem 1.25rem;
   font-size: 0.9375rem;
   font-weight: 600;
-  color: var(--main-color, #0265cb);
+  color: var(--main-color, #338edf);
   text-decoration: none;
-  border: 2px solid var(--main-color, #0265cb);
+  border: 2px solid var(--main-color, #338edf);
   border-radius: 10px;
   transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
 }
 .coverage-locations_cta:hover {
-  background: var(--main-color, #0265cb);
+  background: var(--main-color, #338edf);
   color: #fff;
   transform: translateY(-1px);
 }
@@ -241,7 +241,7 @@
   width: 14px;
   height: 14px;
   border-radius: 4px;
-  background: var(--main-color, #0265cb);
+  background: var(--main-color, #338edf);
   opacity: 0.6;
 }
 .leaflet-interactive {
@@ -303,7 +303,7 @@
       maxZoom: 19
     }).addTo(map);
 
-    var coverageColor = '#0066cc';
+    var coverageColor = '#338edf';
     var defaultZones = [
       { name: 'Central Nairobi', coords: [[-1.278, 36.808], [-1.278, 36.825], [-1.295, 36.825], [-1.295, 36.808]] },
       { name: 'Westlands', coords: [[-1.258, 36.798], [-1.258, 36.815], [-1.272, 36.815], [-1.272, 36.798]] },

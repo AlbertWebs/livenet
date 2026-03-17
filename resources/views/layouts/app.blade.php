@@ -15,10 +15,9 @@
     <link id="theme-color-file" href="{{ asset('css/color-themes/default-color.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800;9..40,900;9..40,1000&display=swap" rel="stylesheet">
 
-    <link rel="icon" type="image/png" href="{{ asset('favicon-48x48.png') }}" sizes="48x48">
-    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
-    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/livenet-favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('images/livenet-favicon.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/livenet-favicon.png') }}">
     <link rel="manifest" href="{{ asset('site.webmanifest') }}">
 
     @stack('styles')
@@ -61,7 +60,7 @@
     }
     .float-whatsapp { left: 16px; bottom: 24px; background: #25d366; color: #fff; }
     .float-whatsapp:hover { color: #fff; transform: scale(1.05); box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4); }
-    .float-back-to-top { right: 16px; bottom: 24px; background: var(--main-color, #0265cb); color: #fff; }
+    .float-back-to-top { right: 16px; bottom: 24px; background: var(--main-color, #338edf); color: #fff; }
     .float-back-to-top:hover { color: #fff; transform: scale(1.05); box-shadow: 0 4px 16px rgba(2, 101, 203, 0.4); }
     </style>
     <script>

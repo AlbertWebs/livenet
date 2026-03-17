@@ -208,7 +208,7 @@
   left: 0;
   top: 0.75rem;
   width: 22px;
-  color: var(--main-color, #0265cb);
+  color: var(--main-color, #338edf);
   font-size: 0.95rem;
 }
 .contact-details_list a {
@@ -216,7 +216,7 @@
   font-weight: 500;
   text-decoration: none;
 }
-.contact-details_list a:hover { color: var(--main-color, #0265cb); text-decoration: underline; }
+.contact-details_list a:hover { color: var(--main-color, #338edf); text-decoration: underline; }
 .contact-details_value { color: #334155; }
 .contact-details_hours {
   font-size: 0.95rem;
@@ -235,7 +235,7 @@
   background: #f1f5f9; color: #475569; font-size: 1.1rem;
   text-decoration: none; transition: background 0.2s, color 0.2s, transform 0.15s;
 }
-.contact-details_social-links a:hover { background: var(--main-color, #0265cb); color: #fff; transform: translateY(-2px); }
+.contact-details_social-links a:hover { background: var(--main-color, #338edf); color: #fff; transform: translateY(-2px); }
 
 .contact-form_row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
 @media (max-width: 576px) { .contact-form_row { grid-template-columns: 1fr; } }
@@ -258,7 +258,7 @@
 }
 .contact-form_fields .form-control:focus {
   outline: none;
-  border-color: var(--main-color, #0265cb);
+  border-color: var(--main-color, #338edf);
   box-shadow: 0 0 0 3px rgba(2, 101, 203, 0.12);
 }
 .contact-form_fields textarea.form-control { resize: vertical; min-height: 120px; }
